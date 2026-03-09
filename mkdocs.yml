@@ -14,19 +14,6 @@ nav:
   - Execution and results: 'application/exec-and-results.md'
 - Solutions Integration: 'integration/integration-interoperability.md'
 
-# - Tutorials:
-#   - For Users:
-#     - Getting Started:
-#       - Installation: 'installation.md'
-#       - Quick Overview: 'overview.md'
-#     - User Guide:
-#       - Terminology: 'terminology.md'
-#       - Reading in Data: 'reading_in_data.md'
-#       - Recovery Targets:
-#         - Historic and Reference Targets: 'historic_reference_targets.md'
-#         - Historic Recovery Methods: 'historic_recovery_methods.md'
-  # - For Developers:
-
 markdown_extensions:
   - attr_list
   - pymdownx.arithmatex:
