@@ -1,0 +1,59 @@
+site_name: PEOPLE-ECCO User Handbook
+site_url: https://PEOPLE-ECCO.github.io
+repo_name: PEOPLE-ECCO
+repo_url: https://github.com/PEOPLE-ECCO
+
+nav:
+- Home: index.md
+- Introduction:
+    - PEOPLE-ECCO Solutions: 'solutions.md'
+    - PEOPLE-ECCO Platform: 'platform.md'
+- Applying PEOPLE-ECCO Solutions:
+  - Using the Platform: 'application/platform.md'
+  - Discovering Solutions: 'application/solutions.md'
+  - Execution and results: 'application/exec-and-results.md'
+- Solutions Integration: 'integration/integration-interoperability.md'
+
+# - Tutorials:
+#   - For Users:
+#     - Getting Started:
+#       - Installation: 'installation.md'
+#       - Quick Overview: 'overview.md'
+#     - User Guide:
+#       - Terminology: 'terminology.md'
+#       - Reading in Data: 'reading_in_data.md'
+#       - Recovery Targets:
+#         - Historic and Reference Targets: 'historic_reference_targets.md'
+#         - Historic Recovery Methods: 'historic_recovery_methods.md'
+  # - For Developers:
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+theme: 
+  name: material
+  features: 
+    - content.code.copy
+    - navigation.tabs
+    - navigation.tabs.sticky
+  icon:
+    repo: fontawesome/brands/github
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/mkdocstrings.css
