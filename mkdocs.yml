@@ -8,10 +8,33 @@ nav:
 - Introduction:
     - PEOPLE-ECCO Solutions: 'solutions.md'
     - PEOPLE-ECCO Platform: 'platform.md'
-- Applying PEOPLE-ECCO Solutions:
-  - Using the Platform: 'application/platform.md'
-  - Discovering Solutions: 'application/solutions.md'
-  - Execution and results: 'application/exec-and-results.md'
+- Solution Handbook:
+  - Terrestrial Solutions: 
+    - Vegetation Productivity Trend (VPT):
+      - Theoretical Background: 'handbook/terrestrial-solutions/VPT/theoretical-background.md'
+      - Key Considerations: 'handbook/terrestrial-solutions/VPT/key-considerations.md'
+      - Getting-Started: 'handbook/terrestrial-solutions/VPT/getting-started.md'
+    - Disturbance Occurrence:
+      - Theoretical Background: 'handbook/terrestrial-solutions/disturbance-occurrence/theoretical-background.md'
+      - Key Considerations: 'handbook/terrestrial-solutions/disturbance-occurrence/key-considerations.md'
+      - Getting-Started: 'handbook/terrestrial-solutions/disturbance-occurrence/getting-started.md'
+    - Habitat Disturbance:
+      - Theoretical Background: 'handbook/terrestrial-solutions/habitat-disturbance/theoretical-background.md'
+      - Key Considerations: 'handbook/terrestrial-solutions/habitat-disturbance/key-considerations.md'
+      - Getting-Started: 'handbook/terrestrial-solutions/habitat-disturbance/getting-started.md'
+  - Marine Solutions:
+    - Submerged Aquatic Vegetation (SAV):
+      - Theoretical Background: 'handbook/marine-solutions/SAV/theoretical-background.md'
+      - Key Considerations: 'handbook/marine-solutions/SAV/key-considerations.md'
+      - Getting-Started: 'handbook/marine-solutions/SAV/getting-started.md'
+    - Marine Habitat Frequency:
+      - Theoretical Background: 'handbook/marine-solutions/habitat-frequency/theoretical-background.md'
+      - Key Considerations: 'handbook/marine-solutions/habitat-frequency/key-considerations.md'
+      - Getting-Started: 'handbook/marine-solutions/habitat-frequency/getting-started.md'
+    - Marine Habitat Connectivity:
+      - Theoretical Background: 'handbook/marine-solutions/habitat-connectivity/theoretical-background.md'
+      - Key Considerations: 'handbook/marine-solutions/habitat-connectivity/key-considerations.md'
+      - Getting-Started: 'handbook/marine-solutions/habitat-connectivity/getting-started.md'
 - Solutions Integration: 'integration/integration-interoperability.md'
 
 markdown_extensions:
