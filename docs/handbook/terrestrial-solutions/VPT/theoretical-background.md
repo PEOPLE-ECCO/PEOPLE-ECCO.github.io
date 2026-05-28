@@ -1,20 +1,11 @@
 # 1. INTRODUCTION
 
-**Authors:**
+This user guide provides an overview of the Vegetation Productivity Trend (VPT) algorithms - Spectral Recovery and Seasonal Sen's slope. This includes a review of the theoretical basis of spectral index trend analysis, which covers:
 
-Marcos Kavlin-Castaneda
-
-**Reviewed/Edited by:**
-
-Dr. Andy Dean
-
-This user guide provides an overview of the Vegetation Productivity tool. In the first half of the user guide, there is a review of the theoretical use of spectral recovery, which covers:
-
-1. The basic approach of using remote sensing techniques for monitoring ecosystem recovery.
-2. Previous work that has been done in this area.
-3. The use of recovery targets.
-4. Interpreting spectral recovery in an ecological context.
-5. Why spectral recovery and seasonal Sen's slope are both used in this solution.
+1. Using remote sensing for monitoring ecosystem recovery.
+2. The use of vegetation productivity targets.
+3. Interpreting spectral index change in an ecological context.
+4. Differences between Spectral Recovery and Seasonal Sen's slope.
 
 In the second half of this document, the tool, its inputs, and guide for its use is discussed.
 
@@ -28,15 +19,15 @@ Monitoring restoration efforts typically involve field measurements, which can b
 
 Remote sensing offers a potential aid for these limitations, with open access, and operationally ready satellite data products allowing consistent, inexpensive, and repeatable measurements of ground conditions at a landscape scale (Cordell et al., 2017).  To date remote sensing techniques have not been used as frequently as field measurements, due in part to cost, access and the typical focus of fine scale site specific recovery strategies (Cordell et al., 2017). However, the increased emphasis on ecosystem restoration and management being landscape-focused (Cordell et al., 2017) makes remote sensing highly applicable to restoration monitoring frameworks.
 
-## 1.2 USING SPECTRAL INDICES TO MONITOR RESTORATION OUTCOMES
+## 1.2 USING SPECTRAL INDICES TO MONITOR VEGETATION CHANGE
 
 Freely available satellite imagery has resulted in advancements in the use of remote sensing data products and algorithms for monitoring the conditions of vegetation (Wulder et al., 2012), with a substantial number of analyses depending on spectral indices. Sometimes referred to as vegetation indices, spectral indices use reflectance from two or more spectral bands to produce an estimate of vegetation health (Zeng et al., 2022). Spectral indices have a long history as proxies for vegetation condition (Banskota et al., 2014) and have been correlated to a wide variety of ecosystem variables, such as ecosystem structure or function (Skidmore et al., 2021), enabling their use in estimating ecosystem recovery. For example, the Normalized Difference Vegetation Index (NDVI) is frequently used to monitor growing conditions and has been shown to correlate with leaf area index (LAI) (Zeng et al., 2022); whilst the Normalized Burn Ratio (NBR) is commonly used to assess vegetation conditions following wildfire, and is related to vegetation productivity and water stress (Key and Benson, 2006).
 
 Spectral indices are commonly used in time series analyses (Banskota et al., 2014) which assess how the indices change over time, often pre and post disturbance events, resulting in a spectral trajectory. By revealing how these indices have changed (in other words, by using the trajectories), it enables the characterization of disturbances, recovery, or both (Wulder et al., 2019). Subsequently, one can use these trajectories to calculate change metrics, such as change magnitude or change duration (Banskota et al., 2014; Wulder et al., 2019). Recent developments in the use of spectral information for ecosystem recovery detection have also resulted in a variety of recovery metrics that have proven to be useful for characterizing recovery specifically, such as Years to Recovery (Y2R) (Wulder et al., 2019; Frazier et al., 2018, De Keersmaecker et al., 2022). Along with these metrics, change algorithms have also been developed, however these are often complex, require parameterization, and are inaccessible to users unfamiliar with remote sensing or statistics (Cohen et al., 2018).
 
-## 1.3 LOOKING AT RECOVERY TRAJECTORIES
+## 1.3 SPECTRAL INDEX TRAJECTORIES
 
-Generally, there are two main components of recovery that should be considered: recovery rate and recovery trajectory or shape (Montoya, 2021). Recovery rates and trajectories are often considered in remote sensing analyses, but they are hard to estimate when using ground data. This is primarily because revealing the rate and trajectory shape require repeated measurements of the conditions, which would be expensive to monitor using field data. Yet, recovery rates and trajectories reveal substantial information about the progress of the recovery, as it shows not only how quickly a site is recovering, but also how that rate is changing over time. It is this information offered by rates and trajectories that can be used for the calculation of recovery metrics, which consequently offer more information about recovery progress than a simple index value.
+Generally, there are two main components of recovery that should be considered: rate and trajectory or shape (Montoya, 2021). Recovery rates and trajectories are often considered in remote sensing analyses, but they are hard to estimate when using ground data. This is primarily because revealing the rate and trajectory shape require repeated measurements of the conditions, which would be expensive to monitor using field data. Yet, recovery rates and trajectories reveal substantial information about the progress of the recovery, as it shows not only how quickly a site is recovering, but also how that rate is changing over time. It is this information offered by rates and trajectories that can be used for the calculation of recovery metrics, which consequently offer more information about recovery progress than a simple index value.
 
   ![image](../../../asset/historical_trends_exmpl.png)
 
@@ -56,39 +47,38 @@ Each of these approaches is described in more detail below.
 
 DETERMINING THE RECOVERY TARGET USING A HISTORICAL APPROACH
 
-A historical approach uses a historical condition of a restoration site as the recovery target. This is the most common approach in the field of remote sensing, with the readily available satellite imagery in the Landsat archives dating back to 1984 making it possible to select a historical recovery target. Support for this approach has grown as there has been increasing freely available historic satellite imagery, with Sentinel-2 imagery's earliest historical period being 2016. In annual time series trajectory analyses, the recovery target is frequently set by taking the average spectral value of the two years prior to the start of the disturbance (De Keersmaecker et al., 2022; Pickell et al., 2016; White et al., 2017). As spectral trajectories can be noisy and subject to interannual variation, an average is taken to represent the general pre-disturbance condition to offset any potential noise in the spectral trajectory of those two years (Pickell et al., 2016). 
+A historical condition of site as is used as the recovery target. This is the most common approach in the field of remote sensing, with the readily available satellite imagery in the Landsat archives dating back to 1984 making it possible to select a historical recovery target. Support for this approach has grown as there has been increasing freely available historic satellite imagery, with Sentinel-2 imagery's earliest historical period being 2016. In annual time series trajectory analyses, the recovery target is frequently set by taking the average spectral value of the two years prior to the start of the disturbance (De Keersmaecker et al., 2022; Pickell et al., 2016; White et al., 2017). As spectral trajectories can be noisy and subject to interannual variation, an average is taken to represent the general pre-disturbance condition to offset any potential noise in the spectral trajectory of those two years (Pickell et al., 2016). 
 
 DETERMINING THE RECOVERY TARGET USING A REFERENCE APPROACH
 
-The second, recommended approach for determining recovery targets within the field of ecological restoration is the use of reference systems (Gann et al., 2019). Reference systems are areas within the same landscape of the restoration site which exhibit desirable ecosystem attributes and represent a healthy or stable ecosystem condition (Gann et al., 2019). These are often attributed to be natural or semi-natural ecosystems which could have been similar to the restoration site's state if not for the site's degradation or disturbance (Gann et al., 2019). The use of reference systems is built on the recognition that within an ecosystem, there are multiple possible meta-states depending on environmental drivers such as climate or species which may affect the successional dynamics, and that ecosystems are always in a state of change (Gann et al., 2019; Hobbs & Norton, 1996). Ecological restoration frameworks strongly encourage the use of reference systems over historical conditions, as the latter target might be impossible or even undesirable to reach. This is primarily due to changes in biotic and abiotic conditions, especially in the context of climate change and the importance of ecosystem resilience (Gann et al., 2019). Yet, to determine restoration successful, a target is still required which is where reference systems become integral.
+Reference systems are areas within the same landscape of the site which exhibit desirable ecosystem attributes and represent a healthy or stable ecosystem condition (Gann et al., 2019). These are often attributed to be natural or semi-natural ecosystems which could have been similar to the restoration site's state if not for the site's degradation or disturbance (Gann et al., 2019). The use of reference systems is built on the recognition that within an ecosystem, there are multiple possible meta-states depending on environmental drivers such as climate or species which may affect the successional dynamics, and that ecosystems are always in a state of change (Gann et al., 2019; Hobbs & Norton, 1996). Ecological restoration frameworks strongly encourage the use of reference systems over historical conditions, as the latter target might be impossible or even undesirable to reach. This is primarily due to changes in biotic and abiotic conditions, especially in the context of climate change and the importance of ecosystem resilience (Gann et al., 2019). Yet, to determine restoration successful, a target is still required which is where reference systems become integral.
 
 By incorporating a number of reference systems into the recovery target, it allows for a range of dynamic conditions making restoration success more feasible (Hobbs & Norton, 1996). It also helps to avoid any potential bias in reference system selection, as choosing one may result in only the highest quality site being chosen (which may be unattainable) or failure to include systems that that experience the same conditions as the restoration site (Atkinson et al. 2022).
 
-## 1.5 WHY VPT USES BOTH SPECTRAL RECOVERY AND SEASONAL SEN'S SLOPE
+## 1.5 VEGETATION PRODUCTIVITY TREND ALGORITHMS
 
-The VPT solution uses two algorithms. Both algorithms are used to produce the same two metrics:
+Two VPT algorithms are available that can be used to fit a trend line through the time series of spectral index values on a pixel basis. The key difference is the time inteval of the input images.
 
-- **R80P**: how close each pixel is to 80% of its recovery target.
-- **DeltaIR**: the change in index value during the recovery monitoring window.
-
-The main difference is not the final metrics, but the time scale of the input data used to compute them.
+- **Spectral Recovery VPT algorithm**: uses annual composites and Thiel Sen regression to establish the trend in the vegetation index from the baseline year to present.
+- **Seasonal Sen's slope VPT algorithm**: uses monthly time series with Seasonal Sen's slope to make a pair-wise comparison between values from the same month as the basis for deriving a trend line for the spectral index.
 
 ### Core difference in data input
 
 | Topic | Spectral recovery | Seasonal Sen's slope |
 | --- | --- | --- |
-| Input time series | Annual composites (typically one value per year) | Monthly time series (multiple values per year) |
-| What this captures best | Year-to-year recovery signal | Seasonal pattern plus long-term trend |
-| Practical benefit | Stable summary of annual condition | Better use of within-year information |
+| Input time series | Annual composite (one value per year) | Monthly time series (multiple values per year) |
+| What this captures best | Long-term trend in vegetation based on conditions at anniversary date | Long-term trend in vegetation productivity accounting for seasonal vegetation change |
+| Practical benefit | Annual 'snapshot' requires less image processing | More robust to inter-annual variability in vegetation productivity, (e.g., timing of wet season) |
 
 ## 1.6 RECOVERY METRICS
 
-The VPT solution has two key outputs, R80P and DeltaIR, generated from both algorithm pathways.
+Two vegetation productivity change metrics are output from each algorithms.
 
-- **R80P** expresses recovery progress relative to the target threshold.
-- **DeltaIR** expresses how much the spectral index changed during the monitoring period.
+- **Percent recovered to threshold (R80P)** evaluates the whether a pixel/site is reaching 80% of the target vegetation productivity value (historical or reference).
+- **Direction and absolute change of vegetation productivity (DeltaIR)** evaluates the magnitude and direction (positive or negative) in vegetation productivity over the monitoring period relative to the starting year.
 
-Visualising of per-pixel recovery metrics enables a clearer understanding of the recovery progress across an entire landscape. Subsequent spatial analyses using these tool outputs can include measures of spatial autocorrelation with external variables, cluster analyses, or measures of spatial heterogeneity. This could prove useful to identifying any spatial patterns or trends in recovery in the landscape, or the potential to identify which external factors (such as restoration treatments, topography, soil, dominant species, precipitation, etc.) are more significant drivers of ecological recovery. Conversely, this can also aid in the identification of areas that could require further restoration activities to aid in the recovery process.
+Visualising of per-pixel metrics enables understanding of the change across an entire landscape. 
+Subsequent spatial analyses using these tool outputs can include analysis in relation to conservation intervention plans and expected outcomes (e.g., tree cover density increase, grassland productivity improvement). The VPT outputs can be used to explore spatial patterns or trends in the landscape, or the potential to identify which external factors (such as restoration treatments, topography, soil, dominant species, precipitation, etc.) are significant drivers of vegetation productivity change. Conversely, this can also aid in the identification of areas that could require further conservation intervention.
 
 # 2. ACKNOWLEDGEMENTS AND REFERENCES
 
