@@ -41,7 +41,7 @@ Set `export_profile` according to your downstream workflow:
 
 Minimum inputs:
 
-- `spatial_extent` (GeoJSON FeatureCollection/Feature) or `spatial_extent_file`
+- `spatial_extent` (GeoJSON FeatureCollection/Feature)
 - `years`
 
 Most important quality controls:
@@ -95,3 +95,34 @@ Planned tutorial scope:
 3. Configure profile, temporal settings, and quality controls.
 4. Launch the run and monitor job status.
 5. Download and validate output composites.
+
+## 7. Parameter reference
+
+This section summarizes the currently supported BAP parameters from the implementation and what each one is used for.
+
+| Parameter | Used for | Default / notes |
+|---|---|---|
+| `spatial_extent` | AOI geometry used for processing and optional clipping | Required |
+| `compositing_mode` | Period type used to generate runs | `yearly` or `monthly`; default `yearly` |
+| `years` | Years included in processing | Default `[2017, 2018, 2019]` in core class |
+| `season_start` | Start month-day for yearly windows | Used in yearly mode; default `01-01` |
+| `season_end` | End month-day for yearly windows | Used in yearly mode; default `03-30` |
+| `months` | Month list for monthly mode | Used in monthly mode; default `[1, 2, 3]` |
+| `indices_to_export` | Indices to compute when payload includes indices | Supported: `NBR`, `NDVI`, `NDMI`, `NBR2`, `SAVI`, `TCW` |
+| `savi_l` | SAVI soil adjustment factor | Default `0.5`; must be `>= 0` |
+| `tcw_coefficients` | Coefficients used to compute TCW | Must include `B02,B03,B04,B08,B11,B12` |
+| `include_reflectance_bands` | Legacy/compatibility flag for export behavior | Present in config; currently not used directly by export selection logic |
+| `export_profile` | Profile that can enforce downstream-compatible settings | `custom`, `spectral_recovery`, `seasonal_sen`, `breaks` |
+| `export_payload` | Output cube content type | `reflectance`, `indices`, or `both` |
+| `naming_convention` | Output filename style | `legacy` or `profiled`; default `profiled` |
+| `manifest_filename` | Manifest filename in output directory | Default `bap_manifest.json` |
+| `max_cloud_cover` | Scene-level cloud cover pre-filter | Default `70` |
+| `spatial_resolution` | Resolution used for SCL resampling and DTC scaling | Default `10` |
+| `dtc_max_distance` | Maximum DTC influence distance scale | Default `30` |
+| `cloud_buffer_px` | Cloud/shadow buffer (in pixels) before scoring | Default `2` |
+| `exclude_scl_classes` | SCL classes masked out before rank selection | Default `[1,2,3,7,8,9,10]` |
+| `score_weight_dtc` | Weight for distance-to-cloud score component | Default `1.0`; must be `>= 0` |
+| `score_weight_date` | Weight for date score component | Default `0.8`; must be `>= 0` |
+| `score_weight_coverage` | Weight for cloud-coverage score component | Default `0.5`; must be `>= 0` |
+| `clip_to_aoi` | Controls whether result is clipped to AOI polygon | Default `true` |
+| `resume_existing_outputs` | Skips existing non-empty output files on reruns | Default `true` |

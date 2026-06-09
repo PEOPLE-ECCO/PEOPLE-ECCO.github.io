@@ -145,3 +145,7 @@ Record these settings for every production run:
 - output manifest path.
 
 This makes reruns and cross-site comparisons far more reliable.
+
+## 11. Full parameter summary
+
+For a complete parameter-by-parameter reference, see the parameter section in the getting started page: [Getting Started parameter reference](getting-started.md#7-parameter-reference).
