@@ -12,6 +12,15 @@ Before setting parameters, define what your composite should optimize:
 
 Different goals can require different trade-offs between strict masking and usable coverage.
 
+### Choose the downstream algorithm mode first
+
+Before fixing BAP parameters, decide which downstream algorithm version/mode the composites are for:
+
+- Spectral Recovery mode: yearly composites, typically reflectance-focused outputs.
+- Seasonal Sen's slope mode: monthly composites, typically index-focused outputs.
+
+In practice, this is a key design decision because temporal granularity and export payload should match the downstream method you plan to run.
+
 ## 2. Temporal window design is critical
 
 BAP ranks observations within a defined period. The period you choose strongly shapes results.
@@ -71,11 +80,13 @@ The implementation combines:
 
 with default relative weights of 1.0, 0.8, and 0.5.
 
+These weights are configurable and can be modified for your workflow needs; the values above are defaults, not fixed constants.
+
 Implication:
 
 - Cloud proximity and date proximity are prioritized over pure scene coverage.
 
-If your use case prioritizes completeness over strict quality, this may need adjustment in code-level workflows.
+If your use case prioritizes completeness over strict quality, adjust the weights and document the final choice for reproducibility.
 
 ## 6. AOI geometry quality is non-negotiable
 
@@ -129,6 +140,7 @@ Record these settings for every production run:
 - exclude_scl_classes,
 - cloud_buffer_px,
 - dtc_max_distance,
+- score weights,
 - spatial resolution,
 - output manifest path.
 

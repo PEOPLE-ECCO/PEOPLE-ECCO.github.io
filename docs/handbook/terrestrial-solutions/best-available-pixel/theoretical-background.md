@@ -11,6 +11,15 @@ This page explains:
 3. How the final composite is assembled.
 4. What this means for interpretation.
 
+## 1.0 Operational modes and downstream algorithm version
+
+When running BAP composites within the workflow of other PEOPLE-ECCO solutions, the compositing should be configured according to the downstream algorithm mode you intend to run:
+
+- Spectral Recovery mode: BAP is typically run in yearly compositing mode to support annual trend workflows.
+- Seasonal Sen's slope mode: BAP is typically run in monthly compositing mode to preserve intra-annual seasonal signals.
+
+This mode selection is not only technical; it defines the temporal behavior of the composite and should be decided before parameter tuning.
+
 ## 1.1 Why Best-Available Pixel compositing is needed
 
 In optical satellite time series, the same location is observed multiple times, often under very different viewing and atmospheric conditions. Clouds, cloud shadows, haze, snow, and adjacency effects can produce noisy or invalid measurements. If these observations are used directly, change analysis can become unstable.
@@ -54,6 +63,8 @@ With current default weights:
 - $w_{dtc} = 1.0$
 - $w_{date} = 0.8$
 - $w_{cov} = 0.5$
+
+These weights are modifiable in the implementation and should be treated as tunable parameters. The values above are defaults used in the current workflow.
 
 So the operational expression is:
 
