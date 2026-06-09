@@ -76,11 +76,11 @@ The implementation combines:
 
 - distance-to-cloud,
 - date proximity,
-- area coverage,
+- cloud-free area coverage,
 
 with default relative weights of 1.0, 0.8, and 0.5.
 
-These weights are configurable and can be modified for your workflow needs; the values above are defaults, not fixed constants.
+These weights are configurable through `score_weight_dtc`, `score_weight_date`, and `score_weight_coverage`; the values above are defaults, not fixed constants.
 
 Implication:
 

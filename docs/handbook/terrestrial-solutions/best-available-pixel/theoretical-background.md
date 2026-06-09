@@ -50,7 +50,7 @@ For each candidate observation, three quality components are computed:
 
 1. Distance-to-cloud score $DTC$: favors pixels farther from clouds.
 2. Date score $DATE$: favors observations near the middle of the target period.
-3. Coverage score $COV$: favors dates with higher valid coverage over the area.
+3. Coverage score $COV$: favors dates with higher cloud-free coverage over the area.
 
 The final BAP score is a weighted average:
 
@@ -74,11 +74,11 @@ $$
 
 ### Date scoring intuition
 
-Date score is computed with a Gaussian-like curve centered on mid-month. This penalizes observations far from the temporal center of the period and reduces edge-date bias.
+Date score is computed with a Gaussian-like curve centered on day 15 of each month. This penalizes observations far from mid-month and reduces edge-date bias.
 
 ### Distance-to-cloud intuition
 
-Distance-to-cloud is computed from a buffered cloud mask. Pixels very close to cloud or cloud shadow receive lower scores to reduce residual contamination.
+Distance-to-cloud is computed from a buffered cloud mask. In the current implementation, the cloud mask is based on SCL cloud/shadow classes (3, 8, 9, 10), then expanded with the configured cloud buffer. Pixels very close to cloud or cloud shadow receive lower scores to reduce residual contamination.
 
 ## 1.4 Rank selection and compositing
 
@@ -88,6 +88,8 @@ After scoring:
 2. Reflectance bands are masked with this rank mask.
 3. A temporal reducer (median) is used to build the composite for the period.
 4. The result is clipped to the area of interest when clipping is enabled.
+
+In the current openEO graph, rank selection is computed with a monthly temporal neighborhood and the selected stack is then reduced with a yearly median inside each requested period.
 
 This procedure is repeated per period (for example each selected month in each year), and outputs are written as GeoTIFF files with a manifest.
 
