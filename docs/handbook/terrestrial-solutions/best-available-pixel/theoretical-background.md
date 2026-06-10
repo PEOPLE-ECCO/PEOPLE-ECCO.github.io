@@ -1,6 +1,6 @@
 # 1. INTRODUCTION
 
-The Best-Available Pixel (BAP) solution creates cleaner satellite composites by selecting, for each pixel, the most suitable observation within a defined time window. Instead of using a single image date, BAP evaluates many candidate observations and keeps the one with the highest quality score.
+The Best-Available Pixel (BAP) solution creates satellite image composites by selecting, for each pixel, the most suitable observation within a defined time window. Instead of using a single image date, BAP evaluates many candidate observations and keeps the one with the highest quality score.
 
 The PEOPLE-ECCO BAP implementation is derived from the openEO BAP approach available through the Copernicus Data Space Ecosystem (CDSE) Algorithm Plaza, and adapted for this workflow context.
 
@@ -18,7 +18,7 @@ When running BAP composites within the workflow of other PEOPLE-ECCO solutions, 
 - Spectral Recovery mode: BAP is typically run in yearly compositing mode to support annual trend workflows.
 - Seasonal Sen's slope mode: BAP is typically run in monthly compositing mode to preserve intra-annual seasonal signals.
 
-This mode selection is not only technical; it defines the temporal behavior of the composite and should be decided before parameter tuning.
+This mode selection should be decided before parameter tuning.
 
 ## 1.1 Why Best-Available Pixel compositing is needed
 
@@ -66,7 +66,7 @@ With current default weights:
 
 These weights are modifiable in the implementation and should be treated as tunable parameters. The values above are defaults used in the current workflow.
 
-So the operational expression is:
+The operational expression is:
 
 $$
 Score = \frac{1.0\,DTC + 0.8\,DATE + 0.5\,COV}{2.3}
@@ -100,13 +100,13 @@ BAP itself is a compositing and quality-control stage. Spectral indices such as 
 This separation is important:
 
 - BAP improves input data quality and temporal consistency.
-- Trend or disturbance metrics then operate on cleaner inputs.
+- Trend or disturbance metrics then operate on higher quality inputs.
 
 ## 1.6 Strengths and limitations
 
 Strengths:
 
-- Better robustness to cloud contamination than single-date selection.
+- Better robustness to cloud contamination than single-date image selection.
 - Pixel-level flexibility in heterogeneous conditions.
 - Compatible with large-area and long time-series workflows.
 

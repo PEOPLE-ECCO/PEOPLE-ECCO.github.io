@@ -27,13 +27,13 @@ BAP ranks observations within a defined period. The period you choose strongly s
 
 Use monthly windows when:
 
-- Phenology is strong and month-to-month differences matter.
-- You need seasonal consistency for trend analysis.
+- Phenology is strong data capturing month-to-month change is an important input to your analysis (e.g., PEOPLE-ECCO VPT Seasonal Sen's Slope).
 
 Use yearly windows when:
 
-- You need a broad annual summary.
-- Monthly observation density is too low.
+- Your analysis needs require a single annual measurement.
+- Monthly observation density is too frequent, e.g., snow-affected regions where winter months are variable and not comparable.
+- Cloud cover is too challenging for monthly composites.
 
 Practical tip:
 
@@ -84,7 +84,7 @@ These weights are configurable through `score_weight_dtc`, `score_weight_date`, 
 
 Implication:
 
-- Cloud proximity and date proximity are prioritized over pure scene coverage.
+- Cloud proximity and date proximity are prioritized over scene level cloud coverage.
 
 If your use case prioritizes completeness over strict quality, adjust the weights and document the final choice for reproducibility.
 
@@ -124,9 +124,9 @@ Only after quality checks should outputs be used for index trends, disturbance m
 
 ## 9. Interpretation caveats
 
-BAP improves observation quality, but it does not remove all uncertainty.
+BAP improves input data quality for further analysis but still requires careful evaluation.
 
-- Persistent cloud regimes may still produce lower-confidence composites.
+- Persistent cloud regimes may still produce low quality composites.
 - Phenology differences between years can remain if windows are not harmonized.
 - Composite quality is not equivalent to ecological validity; field context is still essential.
 
