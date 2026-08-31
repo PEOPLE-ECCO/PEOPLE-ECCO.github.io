@@ -1,10 +1,10 @@
 # 1. INTRODUCTION
 
-This user guide provides the theoretical background for the Disturbance Occurrence tool used in PEOPLE-ECCO terrestrial workflows. The method is designed to detect abrupt vegetation disturbance signals from multi-year spectral index time series using piecewise linear break detection.
+This user guide provides the theoretical background for the Vegetation Disturbance Occurrence tool used in PEOPLE-ECCO terrestrial workflows. The method is designed to detect abrupt vegetation disturbance signals from multi-year spectral index time series using piecewise linear break detection.
 
 The approach builds on methodologies used in large-area time-series analysis for forest monitoring and change characterization, adapted here for broad ecosystem conservation applications where disturbance may occur in forests, woodlands, shrublands, and grasslands.
 
-The key objectives of the Disturbance Occurrence tool are to:
+The key objectives of the Vegetation Disturbance Occurrence tool are to:
 
 1. Detect where a significant disturbance signal occurred.
 2. Estimate when the dominant disturbance occurred.
@@ -24,7 +24,7 @@ In PEOPLE-ECCO use cases, this disturbance signal is primarily used as:
 
 ## 1.2 WHY TRAJECTORY BREAK DETECTION
 
-The Disturbance Occurrence tool uses a spectral trajectory break detection approach rather than direct binary classification. This design has several advantages:
+The Vegetation Disturbance Occurrence tool uses a spectral trajectory break detection approach rather than direct binary classification. This design has several advantages:
 
 - It is interpretable: outputs are explicit change metrics (year, magnitude, duration, rate).
 - It separates stable and changing trajectory segments in a transparent way.
@@ -109,7 +109,7 @@ For segments that do not exist (for example no pre-change or post-change segment
 
 These outputs can be directly mapped, summarized by management units, or thresholded to derive binary disturbance occurrence products.
 
-## 1.6 FROM METRICS TO DISTURBANCE OCCURRENCE PRODUCTS
+## 1.6 FROM METRICS TO VEGETATION DISTURBANCE OCCURRENCE PRODUCTS
 
 The theoretical outputs are continuous metrics, while many conservation decisions require categorical layers. A common operational step is to apply a disturbance threshold to ChgMag (and optionally duration/year constraints) to classify pixels as disturbance occurrence for a target period.
 

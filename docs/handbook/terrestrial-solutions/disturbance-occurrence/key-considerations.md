@@ -1,6 +1,6 @@
 # Key Considerations for Non-Expert Users
 
-This page explains the main decisions needed to run and interpret the Disturbance Occurrence tool.
+This page explains the main decisions needed to run and interpret the Vegetation Disturbance Occurrence tool.
 
 The method uses a spectral trajectory break detection workflow. In practical terms, your main decisions are:
 
@@ -16,13 +16,12 @@ You do not need to be a remote sensing specialist to start. Begin with a simple 
 
 ### 1.1 Use consistent seasonal composites
 
-The tool is most stable when each year is represented by a comparable seasonal window (for example peak vegetation months). This reduces false disturbance signals caused by seasonal mismatch.
+The tool is most stable when each year is represented by a composite of a comparable seasonal window (for example peak vegetation months). This reduces potential for false disturbance signals caused by seasonal mismatch.
 
 Recommended practice:
 
-- Use the same months every year.
-- Prefer high-quality cloud-masked composites.
-- Keep compositing logic unchanged across years.
+- Focus on high-quality cloud-masked composites, and if necessary adjust BAP composite input parameters to achieve a cloud-free composite.
+- Keep compositing logic unchanged across years and use the same input months for the composite every year.
 
 ### 1.2 Choose a spectral index that matches your objective
 
@@ -32,7 +31,7 @@ Common options:
 - SAVI: useful where exposed soil is frequent.
 - NDVI: useful for broad greenness trends, but can saturate in dense vegetation.
 
-If possible, test at least two indices and compare whether identified disturbance areas are consistent.
+If possible, test multiple indices to compare whether identified disturbance areas are consistent.
 
 ## 2. Choosing the Analysis Period
 
@@ -42,7 +41,7 @@ The algorithm expects a yearly sequence between a start year and end year. Choos
 - disturbance phase,
 - and post-disturbance behavior.
 
-As a practical minimum, avoid very short time series. A longer period generally improves interpretation of pre-change and post-change metrics.
+As a practical minimum, the process requires a minimum of two years of data prior to the year of disturbance detection (a total of three years). A longer period generally improves the temporal segment/trajectory building.
 
 ## 3. Choosing the Segmentation Threshold
 
@@ -62,12 +61,12 @@ In the current implementation, the threshold controls when neighboring segments 
 
 ## 4. Data Quality Rules
 
-The break detection code assumes clean numerical time series per pixel.
+The disturbance detection code assumes clean numerical time series per pixel.
 
 Critical rules:
 
 - Missing values must be removed or masked before running the algorithm.
-- Residual cloud and shadow contamination can create false breaks.
+- Residual cloud and shadow contamination can create false disturbance detection.
 - Sensor harmonization and consistent preprocessing are important in multi-year analyses.
 
 If data quality is inconsistent, prioritize improving preprocessing before adjusting algorithm thresholds.
