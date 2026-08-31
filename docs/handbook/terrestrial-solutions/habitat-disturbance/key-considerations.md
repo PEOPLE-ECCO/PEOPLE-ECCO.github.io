@@ -4,8 +4,8 @@ This page explains the main decisions needed to run and interpret the Habitat Di
 
 The workflow combines three disturbance pressure factors into one score:
 
-1. Disturbance-break pixels (`breaks_count`)
-2. Fire points (`fire_count`)
+1. Vegetation Disturbance-break pixels (`breaks_count`)
+2. Fire Occurrence (NASA FIRMS) (`fire_count`)
 3. Built-area pressure (`built_sum`)
 
 You do not need to be a remote sensing specialist to use the tool effectively. A practical approach is to start with defaults, validate in known areas, and then tune parameters.
@@ -24,12 +24,12 @@ If zones are too small relative to raster resolution, scores may become noisy.
 
 ## 2. Understanding the Three Input Factors
 
-### 2.1 Breaks-based disturbance (`breaks_count`)
+### 2.1 Vegetation Disturbance Occurrence (`breaks_count`)
 
 This factor counts retained break pixels per zone after thresholding and spatial filtering.
 
 - Strength: captures vegetation disturbance patterns from time-series change analysis.
-- Watch out: sensitive to preprocessing quality and break-threshold choice.
+- Watch out: sensitive to preprocessing quality and threshold choice.
 
 ### 2.2 Fire pressure (`fire_count`)
 
@@ -47,12 +47,12 @@ This factor sums built-area raster values in each zone.
 
 ## 3. Key Parameters and Their Effects
 
-### 3.1 Break magnitude threshold (default `-200`)
+### 3.1 Vegetation Disturbance Occurrence break magnitude threshold (default `-200`)
 
-Controls which break pixels are retained.
+Controls which pixels are retained as a Vegetation Disturbance Occurrence.
 
-- More negative threshold: stricter, fewer break pixels retained.
-- Less negative threshold: more inclusive, more break pixels retained.
+- More negative threshold: stricter, fewer pixels retained.
+- Less negative threshold: more inclusive, more pixels retained.
 
 Tune this using local examples of known disturbance.
 
@@ -86,7 +86,7 @@ This parameter changes sensitivity to outliers in high-pressure zones.
 
 ### 3.5 Factor weights
 
-Default named weights are:
+Default factor weights are:
 
 - `fire_count=0.3`
 - `breaks_count=0.7`
@@ -104,7 +104,7 @@ Important:
 
 All inputs should be quality-checked before running:
 
-- Breaks raster should have expected two-band structure (year, magnitude).
+- Vegetation Disturbance Occurrence breaks raster should have expected two-band structure (year, magnitude).
 - Fire points should have valid point geometries.
 - Built raster should be co-registered and spatially aligned with analysis extent.
 - Zone, point, and raster CRS should be compatible for accurate spatial operations.
@@ -128,7 +128,7 @@ Recommended workflow:
 1. Run defaults on a small test area.
 2. Inspect intermediate rasters (`VDO.filtered_years.tif`, `VDO.mmu_filtered.tif`).
 3. Compare high/low score zones with local knowledge or very high resolution imagery.
-4. Adjust break threshold, MMU, and weights.
+4. Adjust Vegetation Disturbance Occurrence break threshold, MMU, and weights.
 5. Re-run and check whether ranking of known high-pressure zones improves.
 
 Always document parameter settings used for each operational run.
@@ -137,7 +137,7 @@ Always document parameter settings used for each operational run.
 
 - Using weights that omit required factor names.
 - Interpreting the score as absolute without considering relative scaling and chosen extent.
-- Running without checking that break magnitude threshold fits the selected spectral index.
+- Running without checking that Vegetation Disutrbance Occurrence break magnitude threshold fits the selected spectral index.
 - Using zone units that are too small for the raster resolution.
 - Skipping inspection of intermediate filtering outputs.
 

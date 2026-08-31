@@ -12,7 +12,7 @@ The current implementation is aligned with the ATBD concept of a flexible, user-
 
 ## 1.1 DISTURBANCE RATING IN CONSERVATION CONTEXT
 
-Habitat disturbance is rarely explained by one pressure layer alone. In many landscapes, patterns of ecological pressure emerge from the interaction of different stressors, such as repeated clearing, fire recurrence, and settlement expansion.
+Habitat disturbance is rarely explained by one pressure layer alone. In many landscapes, patterns of ecological pressure emerge from the interaction of different stressors, such as vegetation clearing, fire recurrence, and settlement expansion.
 
 A composite disturbance rating provides a practical decision layer because it:
 
@@ -31,18 +31,18 @@ In PEOPLE-ECCO workflows, the Habitat Disturbance Rating can be used as:
 
 The implemented workflow uses three core factors per zone:
 
-- `breaks_count`: count of disturbance-break pixels (after filtering),
+- `breaks_count`: count of Vegetation Disturbance Occurrence break pixels (after filtering),
 - `fire_count`: count of fire points falling inside each zone,
 - `built_sum`: zonal sum of built-area raster values.
 
-### Breaks-based disturbance factor
+### Vegetation Disturbance Occurrence breaks-based disturbance factor
 
-The breaks raster is expected as a two-band product:
+The Vegetation Disturbance Occurrence breaks raster is expected as a two-band product:
 
 - band 1: break year,
 - band 2: break magnitude.
 
-Pixels are retained where break magnitude is less than or equal to a selected threshold (default: -200). This targets strong negative disturbance signals and excludes weak change.
+Pixels are retained where Vegetation Disturbance Occurrence break magnitude is less than or equal to a selected threshold (default: -200). This targets strong negative disturbance signals and excludes weak change.
 
 ### Fire factor
 
