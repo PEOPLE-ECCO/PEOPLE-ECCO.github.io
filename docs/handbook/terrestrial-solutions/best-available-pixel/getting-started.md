@@ -1,128 +1,57 @@
-# Getting Started with Best-Available Pixel
+# Create a New Timeseries
 
-This page gives a practical quick start for running the PEOPLE-ECCO Best-Available Pixel (BAP) implementation and understanding what it produces.
+Use the workflow below to create a new timeseries in the PEOPLE-ECCO Solutions Platform.
 
-## 1. What BAP does
+This timeseries creation step can be used as an input for both:
 
-BAP builds one composite per requested period (yearly or monthly) by ranking candidate Sentinel-2 observations per pixel with three score components:
+- Vegetation Productivity Trend (VPT)
+- Vegetation Disturbance Occurrence (VDO)
 
-1. distance-to-cloud score,
-2. date score,
-3. cloud-coverage score.
+## Step 1. Start from the Timeseries panel
 
-The final score is a weighted average:
+In the left-side **Timeseries** panel, click the **+** button to open the **Create new Timeseries** wizard.
 
-$$
-Score = \frac{w_{dtc} DTC + w_{date} DATE + w_{cov} COV}{w_{dtc}+w_{date}+w_{cov}}
-$$
+![Step 1 - Open the Create new Timeseries wizard](../../../asset/bap-timeseries-step-1.png)
 
-Default weights in the current implementation are:
+## Step 2. Fill Data Input
 
-- $w_{dtc}=1.0$
-- $w_{date}=0.8$
-- $w_{cov}=0.5$
+In the **Data Input** step:
 
-These are configurable with:
+1. Enter a **Name** for the timeseries.
+2. Optionally add a **Description**.
+3. Click **Next**.
 
-- `score_weight_dtc`
-- `score_weight_date`
-- `score_weight_coverage`
+The wizard shows four steps across the top: Data Input, Process Selection, Extent Selection, and Check Data.
 
-## 2. Pick the right profile first
+![Step 2 - Data Input form](../../../asset/bap-timeseries-step-2.png)
 
-Set `export_profile` according to your downstream workflow:
+## Step 3. Choose process and date range
 
-- `spectral_recovery`: yearly periods and reflectance outputs.
-- `seasonal_sen`: monthly periods and index outputs.
-- `breaks`: yearly periods and a single index band per year.
-- `custom`: keeps your explicit compositing and payload settings.
+In **Process Selection**:
 
-## 3. Key runtime parameters
+1. Select the process from the **Available Algorithms** list (shown: **Spectral Recovery**).
+2. Set the **Start Date** and **End Date**.
+3. Click **Next**.
 
-Minimum inputs:
+![Step 3 - Process Selection and dates](../../../asset/bap-timeseries-step-3.png)
 
-- `spatial_extent` (GeoJSON FeatureCollection/Feature)
-- `years`
+## Step 4. Select the extent
 
-Most important quality controls:
+In **Extent Selection**:
 
-- `max_cloud_cover` (scene pre-filter)
-- `exclude_scl_classes` (pixel-level exclusions)
-- `cloud_buffer_px` (buffer around cloud/shadow pixels)
-- `dtc_max_distance` (distance-to-cloud response scale)
-- score weights (`score_weight_dtc`, `score_weight_date`, `score_weight_coverage`)
+1. Define or adjust the analysis extent on the map.
+2. Confirm the bbox values shown in the extent info panel.
+3. Click **Next**.
 
-## 4. What gets written
+![Step 4 - Extent Selection map](../../../asset/bap-timeseries-step-4.png)
 
-Each run writes GeoTIFF outputs plus a manifest (`bap_manifest.json`) in the output directory.
+## Step 5. Review and create
 
-For each output, the manifest includes at least:
+In **Check Data**:
 
-- period label and temporal extent,
-- export profile and payload,
-- selected reflectance bands and/or indices,
-- spatial resolution,
-- score weights used for ranking.
+1. Review the summary (name, description, extent, start date, end date).
+2. If everything is correct, click **Create**.
 
-## 5. Suggested first run
+After creation, the new timeseries appears in the left panel with its metric layers and opacity controls.
 
-1. Start with defaults and a small AOI.
-2. Run one year first (or one season worth of months).
-3. Visually check cloud-edge artifacts and coverage.
-4. Tune cloud buffer and score weights only if needed.
-5. Scale to full AOI set after quality checks pass.
-
-## 6. Tutorial placeholders
-
-The sections below are placeholders for step-by-step tutorials that can be expanded with screenshots and example parameter files.
-
-### 6.1 Run BAP from CLI (placeholder)
-
-Planned tutorial scope:
-
-1. Prepare credentials and environment variables.
-2. Prepare a run parameters JSON file.
-3. Run the CLI command.
-4. Verify outputs and the manifest.
-5. Troubleshoot common runtime errors.
-
-### 6.2 Run BAP in the PEOPLE-ECCO platform (placeholder)
-
-Planned tutorial scope:
-
-1. Open the BAP workflow in the platform interface.
-2. Upload or select AOI input.
-3. Configure profile, temporal settings, and quality controls.
-4. Launch the run and monitor job status.
-5. Download and validate output composites.
-
-## 7. Parameter reference
-
-This section summarizes the currently supported BAP parameters from the implementation and what each one is used for.
-
-| Parameter | Used for | Default / notes |
-|---|---|---|
-| `spatial_extent` | AOI geometry used for processing and optional clipping | Required |
-| `compositing_mode` | Period type used to generate runs | `yearly` or `monthly`; default `yearly` |
-| `years` | Years included in processing | Default `[2017, 2018, 2019]` in core class |
-| `season_start` | Start month-day for yearly windows | Used in yearly mode; default `01-01` |
-| `season_end` | End month-day for yearly windows | Used in yearly mode; default `03-30` |
-| `months` | Month list for monthly mode | Used in monthly mode; default `[1, 2, 3]` |
-| `indices_to_export` | Indices to compute when payload includes indices | Supported: `NBR`, `NDVI`, `NDMI`, `NBR2`, `SAVI`, `TCW` |
-| `savi_l` | SAVI soil adjustment factor | Default `0.5`; must be `>= 0` |
-| `tcw_coefficients` | Coefficients used to compute TCW | Must include `B02,B03,B04,B08,B11,B12` |
-| `include_reflectance_bands` | Legacy/compatibility flag for export behavior | Present in config; currently not used directly by export selection logic |
-| `export_profile` | Profile that can enforce downstream-compatible settings | `custom`, `spectral_recovery`, `seasonal_sen`, `breaks` |
-| `export_payload` | Output cube content type | `reflectance`, `indices`, or `both` |
-| `naming_convention` | Output filename style | `legacy` or `profiled`; default `profiled` |
-| `manifest_filename` | Manifest filename in output directory | Default `bap_manifest.json` |
-| `max_cloud_cover` | Scene-level cloud cover pre-filter | Default `70` |
-| `spatial_resolution` | Resolution used for SCL resampling and DTC scaling | Default `10` |
-| `dtc_max_distance` | Maximum DTC influence distance scale | Default `30` |
-| `cloud_buffer_px` | Cloud/shadow buffer (in pixels) before scoring | Default `2` |
-| `exclude_scl_classes` | SCL classes masked out before rank selection | Default `[1,2,3,7,8,9,10]` |
-| `score_weight_dtc` | Weight for distance-to-cloud score component | Default `1.0`; must be `>= 0` |
-| `score_weight_date` | Weight for date score component | Default `0.8`; must be `>= 0` |
-| `score_weight_coverage` | Weight for cloud-coverage score component | Default `0.5`; must be `>= 0` |
-| `clip_to_aoi` | Controls whether result is clipped to AOI polygon | Default `true` |
-| `resume_existing_outputs` | Skips existing non-empty output files on reruns | Default `true` |
+![Step 5 - Check Data and create](../../../asset/bap-timeseries-step-5.png)
