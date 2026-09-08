@@ -3,10 +3,10 @@
 This page gives an overview of some key considerations necessary to run the BACI solution:
 
 1. Defining units of analysis
-2. Control-impact matching
-2.1. Selecting matching covariates
-2.2. Selecting matching parameters
-2.3. Evaluation of matching results
+2. Control-impact matching \
+2.1. Selecting matching covariates \
+2.2. Selecting matching parameters \
+2.3. Evaluation of matching results \
 3. Impact evaluation
 
 ## 1. Defining units of analysis
@@ -50,7 +50,7 @@ Common matching methods in conservation science are propensity score matching an
 * Covariates include categorical variable
 * Goal is estimation of population-level effect (e.g., pooled results over several sites) rather than individual pairings between units of analysis
 
-### When **Mahalanobis** matching can be preferable
+#### When **Mahalanobis** matching can be preferable
 * Low-dimensional categorical variables
 * Tight relationships between control and impact units of analysis are required
 
@@ -65,10 +65,14 @@ Setting `replace=TRUE` is appropriate when `ratio>1` and the number of control u
 
 ### 2.3. Evaluation of matching results
 
-
+Matching evaluation can be done by inspecting the similarity between the covariates of impact and control units after matching. 
+If large differences between impact and control units in the distance metric or matching covariates persist after matching, it may be advisable to repeat matching with a different set of distance metric and matching method.
+Absolute Standardized Mean Difference smaller than 0.1 are typically considered as indicative of adequate matching. 
+Distribution of impact and control should show sufficient overlap. Caution is advised on interpretation of consecutive impact evaluation results if covariate overlap is low or absolute Standardized Mean Difference is high
 
 ## 3. Impact evaluation
 
-
-
+Impact evaluation can be based on a before-after-control-impact or control-impact design. 
+The contrast metric will be negative if the effect (or difference `after-before`) is larger in the impact units than in the control units.
+If reforestation interventions are assessed using a fractional tree cover metric in before and after period, negative values of the BACI contrast mean that tree cover increase more in impact units compared to control units.
 
