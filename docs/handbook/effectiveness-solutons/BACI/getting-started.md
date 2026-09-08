@@ -111,7 +111,7 @@ is shown, and attribute to visualize can be selected.
 When the input dataset is loaded, select the attributes corresponding to the treatment and,
 optionally, the unique ID of the features. 
 
-![Add covariate](figures/tab2_id_treatment.png)
+![Select treatment attribute](figures/Tab2_id_treatment.png)
 
 
 ### Covariate selection
@@ -169,7 +169,7 @@ For this method, one of two study designs must be chosen: **Before-After-Control
 or **Control-Impact**. In the former, the before and after attributes are first combined into a
 effect attributes. The latter starts directly from the effect attributes.
 
-![Add covariate](figures/tab3_options.png)
+![BACI options](figures/Tab3_options.png)
 
 ### Impact variable sources
 

@@ -44,7 +44,7 @@ Remotely sensed impact variables have the advantage of providing wide coverage i
 Based on an impact variable, conservation action effectiveness can be quantified using the BACI contrast. 
 Different ways have been proposed to calculate the BACI contrast. Meroni et al. (2017) and del Río-Mena et al. (2021) propose a simple difference-in-difference metric, that is followed here:
 
-BACI_contrast=($\mu$<sup>CA</sup>-$\mu$<sup>CB</sup>)-($\mu$<sup>IA</sup>-$\mu$<sup>IB</sup>)
+BACI_contrast=($\mu$<sub>CA</sub> - $\mu$<sub>CB</sub>)-($\mu$<sub>IA</sub> - $\mu$<sub>IB</sub>)
 
 where $\mu$ represents the impact variable and the subscripts C and I, and B and A represent the control and impact/treatment unit, and before and after period, respectively. 
 This expression of BACI contrast is conceptually simple and can be used with single observations in the before and after periods. 
