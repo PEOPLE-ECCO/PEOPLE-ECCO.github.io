@@ -13,7 +13,7 @@ PEOPLE-ECCO is an ESA-funded initiative that addresses biodiversity loss and cli
 1. Involve conservation-focused CSOs/NGOs in **co-designing** Earth Observation methods applicable to their work, while building EO capacity.
 2. Create and validate EO-integrated methods that serve two purposes: monitoring **existing protected areas** and identifying **areas to be protected**.
 
-The project combines a user-focused track — engagement and co-design with "Early Adopter" organizations — with a technology-focused track that develops and validates the EO Solutions themselves. Large-scale demonstrations span six countries across terrestrial, wetland, and coastal-marine ecosystems, with monitoring zones exceeding 10,000 km² and suitability-assessment zones covering 80,000 km² or entire nations.
+The project combines a user-focused track — engagement and co-design with "Early Adopter" organizations — with a technology-focused track that develops and validates the EO Solutions themselves. Large-scale demonstrations span six countries across terrestrial, wetland, and coastal-marine ecosystems.
 
 ## Consortium and Early Adopters
 
