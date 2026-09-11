@@ -31,8 +31,8 @@ The PEOPLE-ECCO aquatic solutions are:
 -[Habitat frequency](marine-solutions/habitat-frequency/getting-started)
 
 ##  Effectiveness solution
-The development of the aquatic solutions was led by [ITC](https://www.utwente.nl/en/itc/). Source code of the aquatic solutions can be found in **[this](https://github.com/PEOPLE-ECCO/ecco-effectiveness-solutions)** GitHub repository. Please use the repository's **[issues](https://github.com/PEOPLE-ECCO/ecco-effectiveness-solutions/issues)** tab to report bugs or suggest improvements. 
+The development of the effectiveness solution was led by [ITC](https://www.utwente.nl/en/itc/). Source code of the effectiveness solution can be found in **[this](https://github.com/PEOPLE-ECCO/ecco-effectiveness-solutions)** GitHub repository. Please use the repository's **[issues](https://github.com/PEOPLE-ECCO/ecco-effectiveness-solutions/issues)** tab to report bugs or suggest improvements. 
 
 The PEOPLE-ECCO effectiveness solution is:
 
--[Before-After-Control-Impact assessment](marine-solutions/BACI/getting-started): Identify control sites through statistical matching and use them to assess conservation action effectiveness.
+-[Before-After-Control-Impact assessment](effectiveness-solutions/BACI/getting-started): Identify control sites through statistical matching and use them to assess conservation action effectiveness.
