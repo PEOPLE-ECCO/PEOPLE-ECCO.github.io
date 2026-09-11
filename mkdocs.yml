@@ -8,7 +8,7 @@ nav:
 - Introduction:
     - PEOPLE-ECCO Solutions: 'solutions.md'
     - PEOPLE-ECCO Platform: 'platform.md'
-- Solution Handbook:
+- Solutions Handbook: 'handbook/solutions_handbook.md'
   - Terrestrial Solutions: 
     - Vegetation Productivity Trend (VPT):
       - Theoretical Background: 'handbook/terrestrial-solutions/VPT/theoretical-background.md'
@@ -39,6 +39,11 @@ nav:
       - Theoretical Background: 'handbook/marine-solutions/habitat-connectivity/theoretical-background.md'
       - Key Considerations: 'handbook/marine-solutions/habitat-connectivity/key-considerations.md'
       - Getting-Started: 'handbook/marine-solutions/habitat-connectivity/getting-started.md'
+  - Effectiveness Solution:
+    - Before-After-Control-Impact assessment:
+      - Theoretical Background: 'handbook/effectiveness-solutions/BACI/theoretical-background.md'
+      - Key Considerations: 'handbook/effectiveness-solutions/BACI/key-considerations.md'
+      - Getting-Started: 'handbook/effectiveness-solutions/BACI/getting-started.md'
 - Solutions Integration: 'integration/integration-interoperability.md'
 
 markdown_extensions:
