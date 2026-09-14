@@ -23,7 +23,7 @@ The project combines a user-focused track — engagement and co-design with "Ear
 
 ## Content of this handbook
 
-- **[PEOPLE-ECCO Platform](/platform/)** – an overview of the web-based platform used to manage sites, configure timeseries, and run Solutions.
-- **[PEOPLE-ECCO Solutions](/solutions/)** – overview of the developed Solutions
+- **[PEOPLE-ECCO Platform](/introduction/)** – an overview of the web-based platform used to manage sites, configure timeseries, and run Solutions.
+- **[PEOPLE-ECCO Solutions](introduction/)** – overview of the developed Solutions
 - **[Solution Handbook](/handbook/solutions_handbook/)** – theoretical background, key considerations, and getting-started guides for each individual Solution (e.g. Vegetation Productivity Trend, Best Available Pixel, Submerged Aquatic Vegetation).
 - **[Solutions Integration](/integration/integration-interoperability/)** – how to run a Solution locally as an Earth Observation Application Package (EOAP), outside of the Platform.
