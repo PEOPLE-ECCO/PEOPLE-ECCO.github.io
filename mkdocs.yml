@@ -5,9 +5,7 @@ repo_url: https://github.com/PEOPLE-ECCO
 
 nav:
 - Home: index.md
-- Introduction:
-    - PEOPLE-ECCO Solutions: 'solutions.md'
-    - PEOPLE-ECCO Platform: 'platform.md'
+- Introduction: 'introduction.md'
 - Solutions Handbook:
   - 'handbook/solutions_handbook.md'
   - Terrestrial Solutions:
