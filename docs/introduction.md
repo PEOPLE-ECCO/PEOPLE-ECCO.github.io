@@ -1,3 +1,16 @@
+# PEOPLE-ECCO Solutions
+
+Six Solutions have been developed and applied in varying ecosystem regions within the PEOPLE-ECCO project:
+
+- **Vegetation Disturbance Occurrence**: Detects abrupt vegetation disturbance (e.g. clearing, fire) by fitting piecewise-linear segments to multi-year spectral-index (NBR/SAVI) time series and flagging segments with strong negative change, in the spirit of LandTrendr-style trajectory segmentation.
+- **Submerged Aquatic Vegetation and Coral Reef Habitat Extent**: Maps the spatial extent of seagrass meadows and coral reef habitat from multispectral satellite imagery using water-column correction and classification adapted for shallow, optically complex coastal waters.
+- **Vegetation Productivity Trend**: Quantifies long-term vegetation recovery/productivity at restoration and protected sites by fitting (seasonal) Sen's-slope trend lines to spectral-index time series against a historical or reference recovery target (R80P, DeltaIR metrics).
+- **Habitat Disturbance Rating**: Combines vegetation-disturbance breaks, fire occurrence, and built-area pressure into a single normalized, user-weighted composite score per management zone to support conservation prioritization.
+- **Aquatic Habitat Frequency and Connectivity**: Assesses the temporal persistence (detection frequency across a time series) and spatial connectivity (patch/network metrics) of aquatic habitats such as seagrass or coral to characterize their stability and fragmentation.
+- **Before-after-control-impact**: Statistically matches impact and control units and applies a before/after difference-in-differences contrast to isolate the true ecological effect of a conservation action from the counterfactual scenario.
+
+Details on these and how to apply them for a conservation site are provided in the [Solutions Handbook]('handbook/solutions_handbook.md').
+
 # PEOPLE-ECCO Platform
 
 The PEOPLE-ECCO Platform is a user-centred application that allows users to execute PEOPLE-ECCO Solutions via the web browser. It features as user authentication layer (based on Keycloak) and a set of different components, described below.
