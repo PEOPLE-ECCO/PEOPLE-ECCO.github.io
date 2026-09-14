@@ -30,7 +30,7 @@ Optical mapping is most effective in shallow, clear water during periods with li
 
 - Normalized difference indices between bands give the model important information on the relation between band absorption, while removing the dependency over the illumination conditions.
 
-- Ratios between these bands are linked to water depth independant indices, proposed by _Lyzenga, D. R. (1981)_ which are particularly useful to predict benthic habitats under different depths.
+- Ratios between these bands are linked to water depth independant indices, proposed by __Lyzenga, D. R. (1981)__ which are particularly useful to predict benthic habitats under different depths.
 
 ## Machine learning
 
