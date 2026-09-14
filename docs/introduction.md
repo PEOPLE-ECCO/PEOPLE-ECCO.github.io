@@ -9,7 +9,7 @@ Six Solutions have been developed and applied in varying ecosystem regions withi
 - **Aquatic Habitat Frequency and Connectivity**: Assesses the temporal persistence (detection frequency across a time series) and spatial connectivity (patch/network metrics) of aquatic habitats such as seagrass or coral to characterize their stability and fragmentation.
 - **Before-after-control-impact**: Statistically matches impact and control units and applies a before/after difference-in-differences contrast to isolate the true ecological effect of a conservation action from the counterfactual scenario.
 
-Details on these and how to apply them for a conservation site are provided in the [Solutions Handbook]('handbook/solutions_handbook.md').
+Details on these and how to apply them for a conservation site are provided in the [Solutions Handbook](/handbook/solutions_handbook/).
 
 # PEOPLE-ECCO Platform
 
