@@ -8,8 +8,9 @@ nav:
 - Introduction:
     - PEOPLE-ECCO Solutions: 'solutions.md'
     - PEOPLE-ECCO Platform: 'platform.md'
-- Solutions Handbook: 'handbook/solutions_handbook.md'
-  - Terrestrial Solutions: 
+- Solutions Handbook:
+  - 'handbook/solutions_handbook.md'
+  - Terrestrial Solutions:
     - Vegetation Productivity Trend (VPT):
       - Theoretical Background: 'handbook/terrestrial-solutions/VPT/theoretical-background.md'
       - Key Considerations: 'handbook/terrestrial-solutions/VPT/key-considerations.md'
@@ -67,6 +68,7 @@ theme:
     - content.code.copy
     - navigation.tabs
     - navigation.tabs.sticky
+    - navigation.indexes
   icon:
     repo: fontawesome/brands/github
 
