@@ -57,9 +57,13 @@ This section summarises the suggested configurable parameters available to users
 
 Aggregated results are obtained by averaging model prediction on each scene in the selected time-series, and are the main result of the model. This approach is more robust to the noise introduced by metereological conditions.
 
-- The 3-bands probability map, saved as a Geotiff file, containing the Coral, SAV and water class probabilities in this order. It highlights in red high coral probabilities, in green, high SAV probabilities, and in blue high open water probabilities. Pixels appearing in dark show areas where the model certainties are lower.
+- The 3-bands probability map, saved as a Geotiff file, containing the Coral, SAV and water class probabilities in this order. It highlights in red high coral probabilities, in green, high SAV probabilities, and in blue, high open water probabilities. Pixels appearing in dark show areas where the model certainties are lower.
 
-- A model classification (obtained by selecting the class with maximum probability) map, in GeoTiff format.
+![Probability rgb](../../../asset/sav_habitat_probrgb.png)
+
+- A model classification (obtained by selecting the class with maximum probability) map, in GeoTiff format. It shows predicted coral in red and predicted SAV in green.
+
+![Classification](../../../asset/sav_habitat_prediction.png)
 
 - Probability maps for both SAV and coral, saved as GeoTiffs as well.
 
@@ -67,7 +71,8 @@ Aggregated results are obtained by averaging model prediction on each scene in t
 
 - Vector file outlining all detected patches.
 
-- A Sentinel 2 composite image, which is a good reference ot look at when interpreting the results.
+- A Sentinel 2 composite image, which is a good reference ot look at when interpreting the results. This image is a mean composite of all Senitnel 2 images in the timeseries.
+
 
 ### Per scene results
 

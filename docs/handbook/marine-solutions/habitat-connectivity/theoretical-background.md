@@ -9,7 +9,7 @@ Habitat connectivity describes the degree to which a landscape facilitates or im
 - **Structural connectivity** describes the physical arrangement of habitat patches using spatial characteristics such as distance, size, and adjacency.
 - **Functional connectivity** describes how organisms actually move through the landscape and depends on species behaviour and environmental conditions.
 
-The Habitat Connectivity product focuses on structural connectivity derived consistently from spatial data.
+The Habitat Connectivity product focuses on structural connectivity derived from spatial data.
 
 ## Patch-matrix framework
 

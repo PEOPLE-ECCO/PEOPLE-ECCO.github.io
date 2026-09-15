@@ -8,37 +8,18 @@ The Habitat Connectivity product analyzes the spatial structure and arrangement 
 
 The product:
 
-- Uses classified habitat maps, typically from the Habitat Extent product
+- Uses classified habitat maps from the Habitat Extent product
 - Identifies discrete habitat patches
 - Computes spatial metrics describing patch size and connectivity between habitat areas
 
 Main outputs include patch size and distribution maps. These outputs help distinguish large continuous habitats, fragmented or isolated patches, and areas with high or low structural connectivity.
 
-## Select the input dataset
+## Creation of a new connectivity run
 
-Before running the product, ensure that the input habitat maps are suitable for spatial analysis.
+The connectivity product is automatically created for each Timeseries created in the habitat extent product. The process to start a new Timeseries is explained in the habitat extent's[getting started page](../SAV/getting-started.md).
 
-### Input requirements
 
-- A classified habitat map for a single year or selected representative period
-- Consistent spatial resolution, typically 10 m
-- Binary or simplified habitat classes, such as habitat versus non-habitat
-
-### Recommended input choice
-
-Use either:
-
-- A single-year habitat map for structural analysis
-- A filtered or persistent habitat layer from the Habitat Frequency product
-
-Persistent habitat, for example at least 70% frequency, is often recommended so that connectivity reflects stable ecological structures rather than temporary or noisy patterns.
-
-## Key runtime parameters
-
-### Minimum required inputs
-
-- `spatial_extent`: Area of interest
-- `habitat_raster`: Input habitat classification, binary or categorical
+## Additional runtime parameters
 
 ### Patch definition parameters
 
@@ -51,25 +32,8 @@ Persistent habitat, for example at least 70% frequency, is often recommended so 
 
 ## What gets written
 
-Each run produces raster outputs and derived metrics describing habitat structure.
+Each run produces vector layers showing the outline of detected habitat patches. When clicking on the patches in the portal, information about its size and its neighbors are displayed. All the neighboring patches get highlighted as well, as shown in the figure below.
 
-### Main outputs
+![Habitat connectivity result](../../../asset/sav_habitat_coral_vector.png)
 
-- **Patch map**: Identified habitat patches
-- **Patch size layer**: Area of each detected patch
 
-## Suggested first run
-
-- Start with a clean and validated habitat map and a limited AOI
-- Use the default patch-size threshold and standard connectivity metric
-- Inspect patch boundaries and fragmentation patterns
-- Verify that continuous habitat is represented as continuous patches and that small artefacts are not retained
-- Adjust minimum patch size or preprocessing if needed
-
-## Tutorial outline
-
-1. Open the Habitat Connectivity workflow.
-2. Select a habitat map or filtered habitat layer.
-3. Set the neighbouring distance and select the connectivity metric.
-4. Launch and monitor the workflow.
-5. Review connectivity maps and export outputs for GIS use.
