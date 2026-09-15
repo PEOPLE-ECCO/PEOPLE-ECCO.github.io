@@ -1,6 +1,6 @@
 # Getting Started with Habitat Extent 
 
-This page provides a practical quick start for running the Habitat Extent product and understanding what it produces. 
+This page provides a practical quick start for running the Habitat Extent product. This workflow also automatically creates the habitat connectivity product, based on the results of the extent product.
 
 ## What the Habitat Extent product does 
 
@@ -31,26 +31,34 @@ The main outputs are:
 
 ### Step 1 Area selection
 
+After logging into the portal select the __region of interest__ in which you want to use the model, within the available __sites__. 
+
 ![Step 1](../../../asset/sav_start_page.png)
 
 
 ### Step 2 Create a new time-series
 
-Click on the `+` symbol at the bottom of the existing time-series. You might need to scroll down to see it.
+Click on the `+` symbol at the bottom of the existing time-series, indicated by a red arrow in the figure below. You might need to scroll down the __Timeseries View __ menu to see this button.
 
 ![Step 2](../../../asset/sav_habitat_new_ts.png)
 
 ### Step 3 Select A time range
+
+From there on, follow the steps indicated by the pop-up window for creating a timeseries. After selecting the __algorithm__, you will need to select a __start and an end date__ to run the habitat extent product.
 
 ![Step 3](../../../asset/sav_habitat_timewindow.png)
 
 
 ### Step 4 Select an Area Of Interest (AOI)
 
+You can __create the polygon delimiting your area of interest__ by clicking on the map. To finish the polygon, you simply need to left click on the first point of your polygon.
+
 ![Step 4](../../../asset/sav_habitat_aoi_selection.png)
 
 
 ### Step 5 Start the run!
+
+Check the __parameters__ of your run, and click on the `Create` button to start the computations. Depending on the scale of the area and the length of the timeseries, the process might take from 5 minutes to several hours.
 
 ![Step 5](../../../asset/sav_habitat_create.png)
 
@@ -63,7 +71,7 @@ Click on the `+` symbol at the bottom of the existing time-series. You might nee
 
 - Start with a single AOI, the relevant model and limited time period.
 
-- Preview available Sentinel 2 imagery on [Openeo](!https://openeo.org/), and select a time period with clear water and atmospheric conditions. It is also possible on this viewer to change the cloud cover percentage to preview which scenes would be available at different values.
+- Preview available Sentinel 2 imagery on the [Copernicus Browser](!https://browser.dataspace.copernicus.eu/), and select a time period with clear water and atmospheric conditions. It is also possible on this viewer to change the cloud cover percentage to preview which scenes would be available at different values.
 
 - If there is a single clear image, you can select a very short time window including only this scene. This type of scene generally yields good prediction results, and is fast to run.
 
