@@ -1,84 +1,70 @@
-# Create a New Timeseries
+# Getting Started: Best-Available Pixel (BAP)
 
-Use the workflow below to create a new timeseries in the PEOPLE-ECCO Solutions Platform.
+Every PEOPLE-ECCO terrestrial workflow starts from Best-Available Pixel (BAP) composites. This page describes how to run BAP locally with CWL, following the same EOAP-style approach used in the Integration and Interoperability section.
 
-This timeseries creation can be used as an input for both:
+## Requirements
 
-- Vegetation Productivity Trend (VPT)
-- Vegetation Disturbance Occurrence (VDO)
+- Docker
+- A CWL runner (for example `cwl-runner` / `cwltool`)
+- CDSE credentials (OIDC client ID and client secret)
+- The terrestrial solutions package from GitHub: `https://github.com/PEOPLE-ECCO/ecco-terrestrial-solutions`
 
-> Important:
-> The first examples in this handbook are based on demonstration sites where the process parameters are already configured.
-> For those sites, you only need to select the process and date range.
-> For other demonstration sites, such as **Garamba** or **Bulgaria**, you can configure the BAP parameters manually in **Process Selection** (see Step 3B).
+Install a CWL runner (example):
 
-## Step 1. Start from the Timeseries panel
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install cwlref-runner
+```
 
-In the left-side **Timeseries** panel, click the **+** button to open the **Create new Timeseries** wizard.
+## Step-by-step: running BAP locally
 
-![Step 1 - Open the Create new Timeseries wizard](../../../asset/bap-timeseries-step-1.png)
+1. Clone and enter the repository
 
-## Step 2. Fill Data Input
+```bash
+git clone https://github.com/PEOPLE-ECCO/ecco-terrestrial-solutions.git
+cd ecco-terrestrial-solutions
+```
 
-In the **Data Input** step:
+1. Set CDSE credentials
 
-1. Enter a **Name** for the timeseries.
-2. Optionally add a **Description**.
-3. Click **Next**.
+```bash
+export OPENEO_AUTH_CLIENT_ID="<your CDSE client id>"
+export OPENEO_AUTH_CLIENT_SECRET="<your CDSE client secret>"
+```
 
-The wizard shows four steps across the top: Data Input, Process Selection, Extent Selection, and Check Data.
+1. Choose a BAP parameter file
 
-![Step 2 - Data Input form](../../../asset/bap-timeseries-step-2.png)
+Common starters in the repository:
 
-## Step 3A. Choose process and date range (preset-parameter sites)
+- `tooling/bap/bap_run_parameters_breaks.json` for yearly composites used by Breaks/Disturbance Occurrence.
+- `tooling/seasonal-sen/bap_for_seasonal_sen_run_parameters.json` for monthly composites used by Seasonal Sen.
 
-In **Process Selection**:
+1. Run BAP with CWL
 
-1. Select the process from the **Available Algorithms** list (shown: **Spectral Recovery**).
-2. Set the **Start Date** and **End Date**.
-3. Click **Next**.
+```bash
+cwl-runner cwl/bap.cwl \
+  --cdse_client_id="${OPENEO_AUTH_CLIENT_ID}" \
+  --cdse_client_secret="${OPENEO_AUTH_CLIENT_SECRET}" \
+  --parameters tooling/bap/bap_run_parameters_breaks.json \
+  --run_name bap_breaks_run
+```
 
-![Step 3 - Process Selection and dates](../../../asset/bap-timeseries-step-3.png)
+1. Inspect outputs
 
-On preset-parameter sites, the parameter panel can show a message indicating that there are no configurable parameters for the selected process.
+The run writes a directory named after `--run_name`, with:
 
-## Step 3B. Select BAP parameters (Garamba, Bulgaria, and similar sites)
+- `output/bap_manifest.json`
+- BAP composite GeoTIFF files for the requested years/months
 
-For sites where parameter controls are available in **Process Selection**:
+## Using BAP outputs downstream
 
-1. Select a BAP process (for example, **BAP (Restoration)**).
-2. Set the date range using **Year from** and **Year to**.
-3. Configure the available BAP parameters, as needed:
-	- **Compositing mode**
-	- **Include reflectance bands**
-	- **Max cloud cover (%)**
-	- **Distance to cloud (px)**
-	- **Cloud buffer (px)**
-	- **Distance-to-cloud weight**
-	- **Date weight**
-	- **Coverage weight**
+- For Vegetation Disturbance Occurrence (Breaks), pass `<run_name>/output` as the `baps` input in `cwl/breaks.cwl`.
+- For Seasonal Sen, use either:
+  - the combined workflow `cwl/bap_seasonal_sen.cwl`, or
+  - `cwl/seasonal_sen.cwl` with `--bap_sen <run_name>/output`.
 
-![Step 3B - BAP parameter selection](../../../asset/bap-timeseries-step-3b-params.png)
+## Related pages
 
-After setting the parameters, continue to **Extent Selection**.
-
-## Step 4. Select the extent
-
-In **Extent Selection**:
-
-1. Define or adjust the analysis extent on the map.
-2. Confirm the bbox values shown in the extent info panel.
-3. Click **Next**.
-
-![Step 4 - Extent Selection map](../../../asset/bap-timeseries-step-4.png)
-
-## Step 5. Review and create
-
-In **Check Data**:
-
-1. Review the summary (name, description, extent, start date, end date, and selected parameters when applicable).
-2. If everything is correct, click **Create**.
-
-After creation, the new timeseries appears in the left panel with its metric layers and opacity controls.
-
-![Step 5 - Check Data and create](../../../asset/bap-timeseries-step-5.png)
+- [Theoretical Background](theoretical-background.md)
+- [Key Considerations](key-considerations.md)
