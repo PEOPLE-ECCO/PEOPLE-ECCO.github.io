@@ -50,6 +50,25 @@ You can also tune:
 - `cap_percentile`
 - `magnitude_threshold`
 
+Example `disturbance_index-job.yml`:
+
+```yaml
+zones_polys: /path/to/zones.geojson
+breaks_raster: /path/to/breaks.tif
+fires_points: /path/to/firms_fire_points.geojson
+built_raster: /path/to/built_areas.tif
+output: /path/to/disturbance_index_output.geojson
+mmu_area: 5000.0
+majority_filter_size: 7
+connectivity: 8
+weights: "0.3,0.7,0.9"
+cap_percentile: 99.0
+magnitude_threshold: -200.0
+use_opencv: true
+```
+
+Weight order is `disturbance_count,fire_count,built_sum`.
+
 ## Step-by-step: run with CWL
 
 Run from the repository root:

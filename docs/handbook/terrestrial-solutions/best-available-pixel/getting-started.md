@@ -40,6 +40,116 @@ Common starters in the repository:
 - `tooling/bap/bap_run_parameters_breaks.json` for yearly composites used by Breaks/Disturbance Occurrence.
 - `tooling/seasonal-sen/bap_for_seasonal_sen_run_parameters.json` for monthly composites used by Seasonal Sen.
 
+Recommended approach for runnable CWL runs: copy one of the repository templates and edit it.
+
+```bash
+cp tooling/bap/bap_run_parameters_breaks.json my_bap_params.json
+```
+
+The examples below are aligned to repository templates, but they are adapted for readability.
+
+Example parameter file (yearly BAP for Breaks):
+
+```json
+{
+  "spatial_extent": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [[[29.60, 4.09], [29.56, 4.09], [29.56, 4.07], [29.60, 4.07], [29.60, 4.09]]]
+        },
+        "properties": {}
+      }
+    ]
+  },
+  "spatial_extent_file": null,
+  "compositing_mode": "yearly",
+  "years": [2020, 2021, 2022, 2023],
+  "season_start": "09-01",
+  "season_end": "11-30",
+  "months": [9, 10, 11],
+  "indices_to_export": ["SAVI"],
+  "savi_l": 0.5,
+  "tcw_coefficients": {
+    "B02": 0.1509,
+    "B03": 0.1973,
+    "B04": 0.3279,
+    "B08": 0.3406,
+    "B11": -0.7112,
+    "B12": -0.4572
+  },
+  "include_reflectance_bands": false,
+  "exclude_scl_classes": [1, 2, 3, 7, 8, 9, 10],
+  "export_profile": "breaks",
+  "export_payload": "indices",
+  "naming_convention": "profiled",
+  "manifest_filename": "bap_manifest.json",
+  "max_cloud_cover": 20,
+  "spatial_resolution": 10,
+  "dtc_max_distance": 30,
+  "cloud_buffer_px": 2,
+  "score_weight_dtc": 1.0,
+  "score_weight_date": 0.8,
+  "score_weight_coverage": 0.5,
+  "clip_to_aoi": true,
+  "resume_existing_outputs": true
+}
+```
+
+Example parameter file (monthly BAP for Seasonal Sen):
+
+```json
+{
+  "spatial_extent": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [[[105.33, 19.89], [105.33, 19.87], [105.34, 19.87], [105.34, 19.89], [105.33, 19.89]]]
+        },
+        "properties": {}
+      }
+    ]
+  },
+  "spatial_extent_file": null,
+  "compositing_mode": "monthly",
+  "years": [2020, 2021],
+  "season_start": "05-01",
+  "season_end": "07-31",
+  "months": [5, 6, 7],
+  "indices_to_export": ["SAVI"],
+  "savi_l": 0.5,
+  "tcw_coefficients": {
+    "B02": 0.1509,
+    "B03": 0.1973,
+    "B04": 0.3279,
+    "B08": 0.3406,
+    "B11": -0.7112,
+    "B12": -0.4572
+  },
+  "include_reflectance_bands": false,
+  "exclude_scl_classes": [1, 2, 3, 7, 8, 9, 10],
+  "export_profile": "seasonal_sen",
+  "export_payload": "indices",
+  "naming_convention": "profiled",
+  "manifest_filename": "bap_manifest.json",
+  "max_cloud_cover": 30,
+  "spatial_resolution": 10,
+  "dtc_max_distance": 30,
+  "cloud_buffer_px": 2,
+  "score_weight_dtc": 1.0,
+  "score_weight_date": 0.8,
+  "score_weight_coverage": 0,
+  "clip_to_aoi": true,
+  "resume_existing_outputs": true
+}
+```
+
 1. Run BAP with CWL
 
 ```bash

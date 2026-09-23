@@ -42,12 +42,31 @@ cwl-runner cwl/bap.cwl \
 
 Start from `tooling/breaks/breaks_run_parameters.json`.
 
+Recommended approach for runnable CWL runs: copy the template and edit it.
+
+```bash
+cp tooling/breaks/breaks_run_parameters.json my_breaks_params.json
+```
+
 Key fields in this file are:
 
 - `index_name` (for example SAVI or NBR)
 - `break_threshold`
 - `index_scale`
 - `output_name`
+
+Example Breaks parameter file:
+
+This is an adapted example that matches the repository template structure:
+
+```json
+{
+	"index_name": "SAVI",
+	"break_threshold": 0.025,
+	"index_scale": 1000,
+	"output_name": "breaks"
+}
+```
 
 1. Run Breaks with CWL
 
