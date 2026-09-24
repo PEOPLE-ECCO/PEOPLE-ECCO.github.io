@@ -1,57 +1,180 @@
-# Create a New Timeseries
+# Getting Started: Best-Available Pixel (BAP)
 
-Use the workflow below to create a new timeseries in the PEOPLE-ECCO Solutions Platform.
+Every PEOPLE-ECCO terrestrial workflow starts from Best-Available Pixel (BAP) composites. This page describes how to run BAP locally with CWL, following the same EOAP-style approach used in the Integration and Interoperability section.
 
-This timeseries creation step can be used as an input for both:
+## Requirements
 
-- Vegetation Productivity Trend (VPT)
-- Vegetation Disturbance Occurrence (VDO)
+- Docker
+- A CWL runner (for example `cwl-runner` / `cwltool`)
+- CDSE credentials (OIDC client ID and client secret)
+- The terrestrial solutions package from GitHub: `https://github.com/PEOPLE-ECCO/ecco-terrestrial-solutions`
 
-## Step 1. Start from the Timeseries panel
+Install a CWL runner (example):
 
-In the left-side **Timeseries** panel, click the **+** button to open the **Create new Timeseries** wizard.
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install cwlref-runner
+```
 
-![Step 1 - Open the Create new Timeseries wizard](../../../asset/bap-timeseries-step-1.png)
+## Step-by-step: running BAP locally
 
-## Step 2. Fill Data Input
+1. Clone and enter the repository
 
-In the **Data Input** step:
+```bash
+git clone https://github.com/PEOPLE-ECCO/ecco-terrestrial-solutions.git
+cd ecco-terrestrial-solutions
+```
 
-1. Enter a **Name** for the timeseries.
-2. Optionally add a **Description**.
-3. Click **Next**.
+1. Set CDSE credentials
 
-The wizard shows four steps across the top: Data Input, Process Selection, Extent Selection, and Check Data.
+```bash
+export OPENEO_AUTH_CLIENT_ID="<your CDSE client id>"
+export OPENEO_AUTH_CLIENT_SECRET="<your CDSE client secret>"
+```
 
-![Step 2 - Data Input form](../../../asset/bap-timeseries-step-2.png)
+1. Choose a BAP parameter file
 
-## Step 3. Choose process and date range
+Common starters in the repository:
 
-In **Process Selection**:
+- `tooling/bap/bap_run_parameters_breaks.json` for yearly composites used by Breaks/Disturbance Occurrence.
+- `tooling/seasonal-sen/bap_for_seasonal_sen_run_parameters.json` for monthly composites used by Seasonal Sen.
 
-1. Select the process from the **Available Algorithms** list (shown: **Spectral Recovery**).
-2. Set the **Start Date** and **End Date**.
-3. Click **Next**.
+Recommended approach for runnable CWL runs: copy one of the repository templates and edit it.
 
-![Step 3 - Process Selection and dates](../../../asset/bap-timeseries-step-3.png)
+```bash
+cp tooling/bap/bap_run_parameters_breaks.json my_bap_params.json
+```
 
-## Step 4. Select the extent
+The examples below are aligned to repository templates, but they are adapted for readability.
 
-In **Extent Selection**:
+Example parameter file (yearly BAP for Breaks):
 
-1. Define or adjust the analysis extent on the map.
-2. Confirm the bbox values shown in the extent info panel.
-3. Click **Next**.
+```json
+{
+  "spatial_extent": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [[[29.60, 4.09], [29.56, 4.09], [29.56, 4.07], [29.60, 4.07], [29.60, 4.09]]]
+        },
+        "properties": {}
+      }
+    ]
+  },
+  "spatial_extent_file": null,
+  "compositing_mode": "yearly",
+  "years": [2020, 2021, 2022, 2023],
+  "season_start": "09-01",
+  "season_end": "11-30",
+  "months": [9, 10, 11],
+  "indices_to_export": ["SAVI"],
+  "savi_l": 0.5,
+  "tcw_coefficients": {
+    "B02": 0.1509,
+    "B03": 0.1973,
+    "B04": 0.3279,
+    "B08": 0.3406,
+    "B11": -0.7112,
+    "B12": -0.4572
+  },
+  "include_reflectance_bands": false,
+  "exclude_scl_classes": [1, 2, 3, 7, 8, 9, 10],
+  "export_profile": "breaks",
+  "export_payload": "indices",
+  "naming_convention": "profiled",
+  "manifest_filename": "bap_manifest.json",
+  "max_cloud_cover": 20,
+  "spatial_resolution": 10,
+  "dtc_max_distance": 30,
+  "cloud_buffer_px": 2,
+  "score_weight_dtc": 1.0,
+  "score_weight_date": 0.8,
+  "score_weight_coverage": 0.5,
+  "clip_to_aoi": true,
+  "resume_existing_outputs": true
+}
+```
 
-![Step 4 - Extent Selection map](../../../asset/bap-timeseries-step-4.png)
+Example parameter file (monthly BAP for Seasonal Sen):
 
-## Step 5. Review and create
+```json
+{
+  "spatial_extent": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [[[105.33, 19.89], [105.33, 19.87], [105.34, 19.87], [105.34, 19.89], [105.33, 19.89]]]
+        },
+        "properties": {}
+      }
+    ]
+  },
+  "spatial_extent_file": null,
+  "compositing_mode": "monthly",
+  "years": [2020, 2021],
+  "season_start": "05-01",
+  "season_end": "07-31",
+  "months": [5, 6, 7],
+  "indices_to_export": ["SAVI"],
+  "savi_l": 0.5,
+  "tcw_coefficients": {
+    "B02": 0.1509,
+    "B03": 0.1973,
+    "B04": 0.3279,
+    "B08": 0.3406,
+    "B11": -0.7112,
+    "B12": -0.4572
+  },
+  "include_reflectance_bands": false,
+  "exclude_scl_classes": [1, 2, 3, 7, 8, 9, 10],
+  "export_profile": "seasonal_sen",
+  "export_payload": "indices",
+  "naming_convention": "profiled",
+  "manifest_filename": "bap_manifest.json",
+  "max_cloud_cover": 30,
+  "spatial_resolution": 10,
+  "dtc_max_distance": 30,
+  "cloud_buffer_px": 2,
+  "score_weight_dtc": 1.0,
+  "score_weight_date": 0.8,
+  "score_weight_coverage": 0,
+  "clip_to_aoi": true,
+  "resume_existing_outputs": true
+}
+```
 
-In **Check Data**:
+1. Run BAP with CWL
 
-1. Review the summary (name, description, extent, start date, end date).
-2. If everything is correct, click **Create**.
+```bash
+cwl-runner cwl/bap.cwl \
+  --cdse_client_id="${OPENEO_AUTH_CLIENT_ID}" \
+  --cdse_client_secret="${OPENEO_AUTH_CLIENT_SECRET}" \
+  --parameters tooling/bap/bap_run_parameters_breaks.json \
+  --run_name bap_breaks_run
+```
 
-After creation, the new timeseries appears in the left panel with its metric layers and opacity controls.
+1. Inspect outputs
 
-![Step 5 - Check Data and create](../../../asset/bap-timeseries-step-5.png)
+The run writes a directory named after `--run_name`, with:
+
+- `output/bap_manifest.json`
+- BAP composite GeoTIFF files for the requested years/months
+
+## Using BAP outputs downstream
+
+- For Vegetation Disturbance Occurrence (Breaks), pass `<run_name>/output` as the `baps` input in `cwl/breaks.cwl`.
+- For Seasonal Sen, use either:
+  - the combined workflow `cwl/bap_seasonal_sen.cwl`, or
+  - `cwl/seasonal_sen.cwl` with `--bap_sen <run_name>/output`.
+
+## Related pages
+
+- [Theoretical Background](theoretical-background.md)
+- [Key Considerations](key-considerations.md)
