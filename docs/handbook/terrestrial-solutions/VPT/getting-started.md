@@ -225,6 +225,8 @@ For both VPT modes, inspect the run output directory and verify expected metrics
 - `R80P`
 - `DeltaIR`
 
+Either mode can also write percent change, and slope and intercept when those are requested. The parameter examples above name a subset of these metrics. Confirm the layers in the run output match what that parameter file asked for.
+
 ## Related pages
 
 - [Theoretical Background](theoretical-background.md)

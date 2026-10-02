@@ -37,7 +37,7 @@ export OPENEO_AUTH_CLIENT_SECRET="<your CDSE client secret>"
 
 Common starters in the repository:
 
-- `tooling/bap/bap_run_parameters_breaks.json` for yearly composites used by Breaks/Disturbance Occurrence.
+- `tooling/bap/bap_run_parameters_breaks.json` for yearly composites used by Vegetation Disturbance Occurrence.
 - `tooling/seasonal-sen/bap_for_seasonal_sen_run_parameters.json` for monthly composites used by Seasonal Sen.
 
 Recommended approach for runnable CWL runs: copy one of the repository templates and edit it.
@@ -169,7 +169,7 @@ The run writes a directory named after `--run_name`, with:
 
 ## Using BAP outputs downstream
 
-- For Vegetation Disturbance Occurrence (Breaks), pass `<run_name>/output` as the `baps` input in `cwl/breaks.cwl`.
+- For Vegetation Disturbance Occurrence, pass `<run_name>/output` as the `baps` input in `cwl/breaks.cwl`.
 - For Seasonal Sen, use either:
   - the combined workflow `cwl/bap_seasonal_sen.cwl`, or
   - `cwl/seasonal_sen.cwl` with `--bap_sen <run_name>/output`.

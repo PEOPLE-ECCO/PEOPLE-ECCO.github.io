@@ -102,12 +102,22 @@ If data availability allows, run both. Matching results increase confidence. Dif
 
 ## 4. Interpreting the Outputs
 
+Spectral recovery and Seasonal Sen can write the same metrics. The layers you receive depend on what you request, not on which mode you ran. The usual layers are R80P, DeltaIR, and percent change. Slope and intercept, the raw fitted trend line, can be extracted as well.
+
+The maps below are examples of how to read those layers. Vietnam shows R80P and DeltaIR from a spectral-recovery run. Sakar, Bulgaria shows percent change from a Seasonal Sen run. Either metric could have been requested from the other mode.
+
+In these examples, green marks higher or increasing productivity and red marks lower or declining productivity. Yellow sits near the middle of the scale.
+
 ### Percent recovered to threshold (R80P)
 
-Shows whether a pixel/site is close to reaching 80% of its recovery target, e.g., a value of 1 indicates a pixel has reached the 80% of it's recovery target.
+Shows whether a pixel is close to reaching 80% of its recovery target. A value of 1 means the pixel has reached 80% of that target.
 
-- Higher R80P than 1 generally means the site has surpassed target.
-- Lower R80P than 1 suggests more recovery is still needed.
+- R80P higher than 1 means the pixel has surpassed the target.
+- R80P lower than 1 means more recovery is still needed.
+
+![R80P for a Vietnam spectral-recovery run](figures/vietnam_r80p_example.png)
+
+_R80P for a Vietnam spectral-recovery run. Dark green pixels are at or above the 80% recovery target. Red pixels are far below it. Yellow is in between. Large red areas do not by themselves mean the site is worsening; check DeltaIR or percent change for the direction of change._
 
 ### Direction and absolute change of vegetation productivity (DeltaIR)
 
@@ -117,12 +127,36 @@ Shows magnitude and direction (positive or negative) in vegetation productivity 
 - Near-zero DeltaIR means little net change.
 - Negative DeltaIR indicates productivity decline.
 
-### Interpreting both together
+![DeltaIR for a Vietnam spectral-recovery run](figures/vietnam_deltair_example.png)
 
-- **High R80P + positive DeltaIR**: increase in vegetation productivity has resulted in location reaching or nearing target condition.
-- **High R80P + near-zero DeltaIR**: vegetation productivity has remained stable at or near target condition.
-- **Low R80P + positive DeltaIR**: vegetation productivity is below target condition but improving.
-- **Low R80P + negative DeltaIR**: vegetation productivity has declined and is below target condition.
+_DeltaIR for the same Vietnam run. Green is an increase in the spectral index, yellow is little net change, and orange to red is a decline. Much of this site is yellow to light orange, with scattered green patches of increase._
+
+Despite the Vietnam BAP composites behind these maps still containing some cloud-related artifacts, the metrics are still usable. Where cloud cover is extremely high throughout the year, expect residual haze or gaps in the composites and read sharp. If artifacts or residual clouds are more severe than those examples or if you see patterns in the ouptuts that don't match your understanding of the site try obtaining better composites before re-running the tool. See the [BAP key considerations](../best-available-pixel/key-considerations.md#spectral-recovery-mode-yearly-reflectance-composites-vietnam) for examples of the composites mentioned here.
+
+### Percent change
+
+Percent change expresses the same trend as a relative change over the monitoring period.
+
+- Positive percent change indicates an increase in the spectral index.
+- Near-zero percent change means little net change.
+- Negative percent change indicates a decline.
+
+![Percent change for Sakar, Bulgaria](figures/sakar_pct_chg_example.png)
+
+_Percent change from a Seasonal Sen run for Sakar, Bulgaria. Pale yellow is little net change. Green patches are increases and orange to red patches are decreases. Most of the landscape is relatively stable, with change concentrated in small areas._
+
+### Slope and intercept
+
+Slope is the fitted rate of change in the spectral index, and intercept is the fitted starting level of that line. Request these when you need the regression parameters themselves, for example to compare rates between sites. The summarized maps above are usually enough for a first look at where productivity increased, stayed stable, or declined.
+
+### Interpreting the metrics together
+
+Below are some examples of how one might interpret the outputs from the VPT solution together:
+
+- **High R80P + positive DeltaIR or percent change**: an increase in vegetation productivity has brought the location to or near the target condition.
+- **High R80P + near-zero DeltaIR or percent change**: vegetation productivity has stayed stable at or near the target condition.
+- **Low R80P + positive DeltaIR or percent change**: vegetation productivity is below the target condition but improving.
+- **Low R80P + negative DeltaIR or percent change**: vegetation productivity has declined and is below the target condition.
 
 ## 5. A Simple Decision Workflow
 
