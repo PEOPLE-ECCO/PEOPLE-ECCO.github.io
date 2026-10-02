@@ -19,7 +19,7 @@ Before fixing BAP parameters, decide which downstream algorithm version/mode the
 - Spectral Recovery mode: yearly composites, typically reflectance-focused outputs.
 - Seasonal Sen's slope mode: monthly composites, typically index-focused outputs.
 
-In practice, this is a key design decision because temporal granularity and export payload should match the downstream method you plan to run.
+In practice, this is a key design decision because temporal granularity and export payload should match the downstream method you plan to run. Examples of both modes are in [Validate outputs before downstream analysis](#8-validate-outputs-before-downstream-analysis).
 
 ## 2. Temporal window design is critical
 
@@ -122,11 +122,34 @@ Perform quick checks:
 
 Only after quality checks should outputs be used for index trends, disturbance mapping, or recovery metrics.
 
+### Seasonal Sen mode: monthly index composite (Bulgaria)
+
+Seasonal Sen expects monthly composites, usually exported as a spectral index rather than reflectance. The Sakar region in Bulgaria is an example. The 2025 composite below is a single SAVI index image with continuous coverage across the site, which is one timestep of what the monthly workflow needs before the trend is fit.
+
+![Spectral-index BAP composite for Sakar, Bulgaria, June 2025](figures/2025_bulgaria_sss_bap.png)
+
+_Example BAP composite (Seasonal Sen mode) for the Sakar region, Bulgaria, in June 2025. Darker shades of green indicate higher values in the SAVI spectral index. Coverage is continuous across the site._
+
+### Spectral recovery mode: yearly reflectance composites (Vietnam)
+
+Spectral recovery expects one composite per year, usually exported as reflectance. The Vietnam examples below are yearly composites for 2016 and 2025.
+
+![Yearly true-color BAP composite for a sub-basin in Vietnam, 2016](figures/2016_vietnam_bap.png)
+
+_Example BAP composite (spectral-recovery mode) for a sub-basin in Vietnam in 2016. One can clearly see areas that are have forest cover as compared to areas that have been cleared. Bright cyan and white patches are residual cloud and haze._
+
+![Yearly false-color BAP composite for a Vietnam site, 2025](figures/2025_vietnam_bap.png)
+
+_The same Vietnam site in 2025. Cloud-related artifacts are still visible._
+
+!!! note
+    These Vietnam composites  contain cloud-related artifacts, however they  can still be used for our analysis. In areas with extremely high cloud cover throughout the year it is often not possible to produce a perfect composite. Spme whispy artifacts such as the ones we see in these images still allow the spectra to be detected by the algorithm. The [VPT key considerations](../VPT/key-considerations.md#4-interpreting-the-outputs) show R80P and DeltaIR maps produced from this kind of input.
+
 ## 9. Interpretation caveats
 
 BAP improves input data quality for further analysis but still requires careful evaluation.
 
-- Persistent cloud regimes may still produce low quality composites.
+- Persistent cloud regimes may still leave artifacts in the composite. That does not automatically make the composite unusable. However these inputs should be used with caution as they can negatively impact results.
 - Phenology differences between years can remain if windows are not harmonized.
 - Composite quality is not equivalent to ecological validity; field context is still essential.
 

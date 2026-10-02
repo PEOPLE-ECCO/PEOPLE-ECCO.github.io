@@ -91,8 +91,25 @@ Typical logic:
 - Require disturbance magnitude beyond a chosen threshold.
 - Optionally constrain disturbance year to a target monitoring period.
 - Optionally constrain duration to remove very short noisy events.
+- Optionally apply a minimum mapping unit so isolated patches below a chosen size are dropped.
 
 Thresholds must be calibrated to landscape type and selected spectral index.
+
+### 5.2 Worked example: disturbances in northern Democratic Republic of the Congo (DRC), 2023 to 2025
+
+Start with a recent view of the landscape. The image below is the current ESRI Wayback basemap for an in the north of the Democratic Republic of the Congo (DRC). Bare soil, clearings, and tracks sit in and along the forest, so the landscape is visibly disturbed. The basemap does not say when each opening was made.
+
+![Current ESRI Wayback basemap of a disturbed landscape in northern DRC](figures/esri_current_basemap.png)
+
+_Current ESRI Wayback imagery for an area in northern DRC. Brown and tan patches are cleared or bare ground among forest. Clouds cover parts of the scene._
+
+The Vegetation Disturbance Occurrence magnitude band (ChgMag) is a continuous measure of how large the spectral drop was. Threshold it to keep disturbances greater than a level you choose for the landscape and the spectral index. Pixels that pass that threshold still carry the disturbance year (ChgYr), so the same map shows both where a disturbance was large enough to keep and which year it occurred.
+
+The map below is that step for a Vegetation Disturbance Occurrence run covering 2023 to 2025. Magnitude was already thresholded, and a minimum mapping unit of 7 pixels was applied, so patches smaller than that size are not drawn. Each color is one disturbance year in that window (Yellow = 2023, Light blue = 2024, Pink = 2025). Many of the kept patches follow the larger clearings on the basemap. Some of the other disturbances seen may have occurred outside of the 2023 to 2025 period.
+
+![Thresholded Vegetation Disturbance Occurrence disturbances from 2023 to 2025 in northern DRC](figures/VDO_Example_2023_to_2025_outside_garamba.png)
+
+_Vegetation Disturbance Occurrence disturbances from 2023 to 2025 in an area of northern DRC, drawn on the same basemap. Magnitude was thresholded and patches smaller than 7 pixels were removed. Color shows the year of disturbance (Yellow = 2023, Light blue = 2024, Pink = 2025)._
 
 ## 6. Validation and Quality Control
 
@@ -100,7 +117,7 @@ Use local knowledge and independent observations to validate outputs.
 
 Recommended checks:
 
-- Visual comparison with high-resolution imagery.
+- Visual comparison with high-resolution imagery. The [northern DRC example](#52-worked-example-disturbances-in-northern-democratic-republic-of-the-congo-drc-2023-to-2025) pairs a current ESRI Wayback basemap with thresholded Vegetation Disturbance Occurrence patches.
 - Cross-comparison with fire detections where relevant.
 - Spatial consistency checks (for example isolated single-pixel artifacts).
 - Temporal plausibility checks (does change year align with known events).
@@ -120,8 +137,7 @@ If results are noisy, revisit compositing and masking first, then threshold tuni
 1. Define your disturbance question and monitoring period.
 2. Build consistent yearly composites and select index (start with NBR).
 3. Run with default segmentation threshold.
-4. Review ChgYr, ChgMag, ChgDur together.
+4. Review ChgYr, ChgMag together.
 5. Calibrate disturbance classification thresholds using known sites.
 6. Validate with independent data and refine.
 7. Scale to full area after settings are stable.
-

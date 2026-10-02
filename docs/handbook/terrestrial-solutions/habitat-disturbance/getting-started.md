@@ -98,8 +98,8 @@ The configured output file (GeoJSON/GPKG/Shapefile) includes at least:
 ## End-to-end sequence with upstream tools
 
 1. Create BAP composites (`cwl/bap.cwl`).
-1. Run Breaks / Disturbance Occurrence (`cwl/breaks.cwl`).
-1. Use Breaks output raster plus fire and built layers in Habitat Disturbance Rating.
+1. Run Vegetation Disturbance Occurrence (`cwl/breaks.cwl`).
+1. Use VDO output raster plus fire and built layers in Habitat Disturbance Rating.
 
 ## Related pages
 
