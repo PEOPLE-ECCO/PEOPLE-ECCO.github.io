@@ -172,3 +172,23 @@ Below are some examples of how one might interpret the outputs from the VPT solu
 - Ensure you understand that spectral index change is only and indicator of ecosystem change, and one factor to consider when assessing a conservation intervention.
 - Using a reference site that is not representative of the area monitored.
 - Poor quality input image series, caused by clouds, or a time series that is too short to capture vegetation productivity change.
+
+## 7. User Guidelines
+
+Validation outcomes indicate that VPT interpretation is most reliable when users apply explicit quality checks after running the workflow.
+
+Use these quality gates before communicating results:
+
+1. Target validity gate: confirm the selected target approach (historical or reference) is ecologically realistic for the site and period.
+2. Metric consistency gate: check whether `R80P` and trend metrics (`DeltaIR` or `Percent Change`) tell a coherent story.
+3. Cross-evidence gate: compare mapped patterns against contextual evidence such as intervention timing, known disturbances, and field observations.
+4. Sensitivity gate: verify that core conclusions remain broadly similar under small, plausible changes (index choice or algorithm mode).
+5. Monitoring continuity gate: for year-on-year comparison, keep settings fixed and document data versions and parameter choices.
+
+## 8. Limitations
+
+- Spectral indices are proxies of ecosystem condition and do not directly measure biodiversity, structure, or species composition.
+- Recovery target definition strongly influences `R80P` outcomes and comparability.
+- Index behavior differs by ecosystem (for example NDVI saturation in dense canopies).
+- Cloud contamination, short time series, or inconsistent temporal sampling can bias trend estimation.
+- Trend metrics can miss short, abrupt events or management actions not well captured by the selected composite frequency.

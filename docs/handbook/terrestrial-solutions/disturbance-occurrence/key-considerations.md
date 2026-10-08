@@ -132,12 +132,32 @@ If results are noisy, revisit compositing and masking first, then threshold tuni
 - Interpreting disturbance from one metric alone without checking year and duration.
 - Skipping local validation before operational use.
 
-## 8. Simple Decision Workflow
+## 8. Simple Workflow
 
 1. Define your disturbance question and monitoring period.
 2. Build consistent yearly composites and select index (start with NBR).
-3. Run with default segmentation threshold.
-4. Review ChgYr, ChgMag together.
-5. Calibrate disturbance classification thresholds using known sites.
-6. Validate with independent data and refine.
-7. Scale to full area after settings are stable.
+3. Confirm BAP input quality  (consistent seasonal window and low residual cloud contamination).
+4. Run with default segmentation threshold.
+5. Review ChgYr, ChgMag together.
+6. Calibrate disturbance classification thresholds using known sites.
+7. Validate with independent data and refine.
+8. Scale to full area after settings are stable.
+
+## 9. User Guidelines
+
+Based on validation outcomes, use the following quality gates before treating outputs as operational:
+
+1. Input quality gate: verify at least three yearly observations and consistent seasonal windows across years.
+2. Sensitivity gate: compare at least two disturbance threshold settings and document how mapped area and patch counts change.
+3. Plausibility gate: check sampled locations to confirm that `ChgYr` aligns with known event windows and mapped patches align with imagery.
+4. Interpretation gate: report disturbance classes together with the underlying metrics used (for example `ChgMag` and `ChgYr`) and key assumptions.
+5. Reproducibility gate: archive final parameters, AOI version, imagery date ranges, and tool version for repeat runs.
+
+## 10. Limitations
+
+- Disturbance results are sensitive to input composite quality and seasonal consistency.
+- Short time series reduce reliability and can miss pre-disturbance context.
+- The approach can oversimplify pixels with repeated or multi-phase disturbances.
+- Classification thresholds are not universally transferable and should be recalibrated by ecosystem and index choice.
+
+

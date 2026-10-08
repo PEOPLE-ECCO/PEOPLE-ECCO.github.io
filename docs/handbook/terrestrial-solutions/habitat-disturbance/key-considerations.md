@@ -150,3 +150,22 @@ Always document parameter settings used for each operational run.
 5. Tune threshold, MMU, and weights to match local context.
 6. Produce final Habitat Disturbance Rating map and keep parameters for reproducibility.
 
+## 9. User Guidelines
+
+Validation outcomes indicate that this solution is most reliable when users apply explicit interpretation checks after running the workflow.
+
+Use these quality gates before communicating results:
+
+1. Input integrity gate: confirm schema, CRS, and alignment are valid for zones, breaks raster, fire points, and built raster.
+2. Signal plausibility gate: verify that high-scoring zones are supported by component fields (`breaks_count`, `fire_count`, `built_sum`) and local context.
+3. Sensitivity gate: confirm conclusions remain broadly consistent after small parameter changes (for example threshold or MMU).
+4. Comparability gate: only compare runs over time when zone design, temporal scope, and final parameters are unchanged.
+5. Documentation gate: record final settings and data versions so results can be reproduced and audited.
+
+## 10. Limitations
+
+- The rating is relative within a run; it is not an absolute ecological rating.
+- Results depend on quality and temporal representativeness of the three pressure inputs.
+- Weighting choices are value-based decisions and can substantially alter rankings.
+- Very small zones can produce noisy scores, while very large zones can hide local pressure hotspots.
+

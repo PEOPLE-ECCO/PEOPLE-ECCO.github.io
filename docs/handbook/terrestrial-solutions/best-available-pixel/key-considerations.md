@@ -169,6 +169,25 @@ Record these settings for every production run:
 
 This makes reruns and cross-site comparisons far more reliable.
 
-## 11. Full parameter summary
+## 11. User Guidelines
+
+Validation runs indicate that BAP is most reliable when configured and reviewed in a staged way, rather than scaled immediately.
+
+Recommended operational pattern:
+
+1. Run a pilot AOI first (small but representative of cloud, land cover, and seasonality conditions).
+2. Decide downstream mode before tuning (yearly for Breaks and Spectral Recovery; monthly for Seasonal Sen's slope).
+3. Tune one cloud/score parameter at a time and keep all others fixed.
+4. Review outputs and manifest for periods with low valid coverage before scaling.
+5. Freeze the final parameter set and reuse it unchanged for production runs in the same landscape.
+
+## 12. Limitations
+
+- BAP can reduce cloud effects but may not fully remove atmospheric and cloud-edge artifacts in persistently cloudy areas.
+- Output behavior is sensitive to seasonal window selection and score weighting choices.
+- Composite quality can vary across time windows when valid observations are sparse.
+- BAP improves data quality for downstream analysis but does not by itself confirm ecological change.
+
+## 13. Full parameter summary
 
 For a complete parameter-by-parameter reference, see the parameter section in the getting started page: [Getting Started parameter reference](getting-started.md#7-parameter-reference).
