@@ -125,3 +125,22 @@ If results are noisy, revisit compositing and masking first, then threshold tuni
 6. Validate with independent data and refine.
 7. Scale to full area after settings are stable.
 
+## 9. User Guidelines
+
+Validation of the solution suggests the most robust use pattern is a calibrated, iterative workflow.
+
+Recommended sequence:
+
+1. Confirm BAP input quality first (consistent seasonal window and low residual cloud contamination).
+2. Run a pilot area with known disturbances before running large extents.
+3. Test at least two threshold settings and compare omission/false positives.
+4. Build disturbance classes using more than one metric (for example ChgMag with ChgYr), not one field alone.
+5. Record final settings and keep them fixed for repeat monitoring in the same landscape.
+
+## 10. Limitations
+
+- Disturbance results are sensitive to input composite quality and seasonal consistency.
+- Short time series reduce reliability and can miss pre-disturbance context.
+- The approach can oversimplify pixels with repeated or multi-phase disturbances.
+- Classification thresholds are not universally transferable and should be recalibrated by ecosystem and index choice.
+

@@ -138,3 +138,23 @@ Shows magnitude and direction (positive or negative) in vegetation productivity 
 - Ensure you understand that spectral index change is only and indicator of ecosystem change, and one factor to consider when assessing a conservation intervention.
 - Using a reference site that is not representative of the area monitored.
 - Poor quality input image series, caused by clouds, or a time series that is too short to capture vegetation productivity change.
+
+## 7. User Guidelines
+
+Validation outcomes indicate that VPT interpretation improves when target, index, and algorithm decisions are tested explicitly before scaling.
+
+Recommended sequence:
+
+1. Start with one representative site and reference options when feasible.
+2. Run at least two indices (for example NDVI and NBR) to check for consistency in the trend.
+3. Match algorithm to seasonality and data availability (annual for lower seasonality, monthly Seasonal Sen's slope for strong seasonality).
+4. Interpret `R80P` and `DeltaIR` (or `PercentChange`) together, then cross-check with contextual data (interventions, field observations, disturbance history).
+5. Re-run annually with consistent settings to assess trajectory direction over time.
+
+## 8. Limitations
+
+- Spectral indices are proxies of ecosystem condition and do not directly measure biodiversity, structure, or species composition.
+- Recovery target definition strongly influences `R80P` outcomes and comparability.
+- Index behavior differs by ecosystem (for example NDVI saturation in dense canopies).
+- Cloud contamination, short time series, or inconsistent temporal sampling can bias trend estimation.
+- Trend metrics can miss short, abrupt events or management actions not well captured by the selected composite frequency.

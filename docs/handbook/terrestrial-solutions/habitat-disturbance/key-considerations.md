@@ -150,3 +150,22 @@ Always document parameter settings used for each operational run.
 5. Tune threshold, MMU, and weights to match local context.
 6. Produce final Habitat Disturbance Rating map and keep parameters for reproducibility.
 
+## 9. User Guidelines
+
+Validation of the solution indictates that it is strongest when users verify each component and then tune parameters in small steps.
+
+Recommended sequence:
+
+1. Validate schema and CRS for all four inputs (zones, breaks raster, fires points, built raster) before running.
+2. Run defaults on a representative pilot area and inspect intermediate filtering outputs.
+3. Adjust one control at a time (threshold, MMU, then weights) to isolate effects.
+4. Inspect component fields (`breaks_count`, `fire_count`, `built_sum`) alongside final score before interpretation.
+5. Keep zone design and final parameterization fixed when comparing results over time.
+
+## 10. Limitations
+
+- The rating is relative within a run; it is not an absolute ecological rating.
+- Results depend on quality and temporal representativeness of the three pressure inputs.
+- Weighting choices are value-based decisions and can substantially alter rankings.
+- Very small zones can produce noisy scores, while very large zones can hide local pressure hotspots.
+
