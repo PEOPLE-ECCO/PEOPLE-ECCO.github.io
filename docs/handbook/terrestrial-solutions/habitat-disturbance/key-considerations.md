@@ -152,15 +152,15 @@ Always document parameter settings used for each operational run.
 
 ## 9. User Guidelines
 
-Validation of the solution indictates that it is strongest when users verify each component and then tune parameters in small steps.
+Validation outcomes indicate that this solution is most reliable when users apply explicit interpretation checks after running the workflow.
 
-Recommended sequence:
+Use these quality gates before communicating results:
 
-1. Validate schema and CRS for all four inputs (zones, breaks raster, fires points, built raster) before running.
-2. Run defaults on a representative pilot area and inspect intermediate filtering outputs.
-3. Adjust one control at a time (threshold, MMU, then weights) to isolate effects.
-4. Inspect component fields (`breaks_count`, `fire_count`, `built_sum`) alongside final score before interpretation.
-5. Keep zone design and final parameterization fixed when comparing results over time.
+1. Input integrity gate: confirm schema, CRS, and alignment are valid for zones, breaks raster, fire points, and built raster.
+2. Signal plausibility gate: verify that high-scoring zones are supported by component fields (`breaks_count`, `fire_count`, `built_sum`) and local context.
+3. Sensitivity gate: confirm conclusions remain broadly consistent after small parameter changes (for example threshold or MMU).
+4. Comparability gate: only compare runs over time when zone design, temporal scope, and final parameters are unchanged.
+5. Documentation gate: record final settings and data versions so results can be reproduced and audited.
 
 ## 10. Limitations
 

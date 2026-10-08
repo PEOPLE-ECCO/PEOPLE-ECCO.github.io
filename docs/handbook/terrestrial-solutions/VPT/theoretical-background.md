@@ -72,10 +72,12 @@ Two VPT algorithms are available that can be used to fit a trend line through th
 
 ## 1.6 RECOVERY METRICS
 
-Two vegetation productivity change metrics are output from each algorithms.
+Either VPT algorithm can write the same metrics. Which layers are produced depends on what is requested.
 
-- **Percent recovered to threshold (R80P)** evaluates the whether a pixel/site is reaching 80% of the target vegetation productivity value (historical or reference).
+- **Percent recovered to threshold (R80P)** evaluates whether a pixel/site is reaching 80% of the target vegetation productivity value (historical or reference).
 - **Direction and absolute change of vegetation productivity (DeltaIR)** evaluates the magnitude and direction (positive or negative) in vegetation productivity over the monitoring period relative to the starting year.
+- **Percent change** expresses that trend as a relative change over the monitoring period. Positive values indicate an increase, near-zero values indicate little net change, and negative values indicate a decline.
+- **Slope and intercept** are the fitted trend line.
 
 Visualising of per-pixel metrics enables understanding of the change across an entire landscape. 
 Subsequent spatial analyses using these tool outputs can include analysis in relation to conservation intervention plans and expected outcomes (e.g., tree cover density increase, grassland productivity improvement). The VPT outputs can be used to explore spatial patterns or trends in the landscape, or the potential to identify which external factors (such as restoration treatments, topography, soil, dominant species, precipitation, etc.) are significant drivers of vegetation productivity change. Conversely, this can also aid in the identification of areas that could require further conservation intervention.

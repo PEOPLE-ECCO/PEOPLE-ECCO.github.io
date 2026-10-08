@@ -91,8 +91,25 @@ Typical logic:
 - Require disturbance magnitude beyond a chosen threshold.
 - Optionally constrain disturbance year to a target monitoring period.
 - Optionally constrain duration to remove very short noisy events.
+- Optionally apply a minimum mapping unit so isolated patches below a chosen size are dropped.
 
 Thresholds must be calibrated to landscape type and selected spectral index.
+
+### 5.2 Worked example: disturbances in northern Democratic Republic of the Congo (DRC), 2023 to 2025
+
+Start with a recent view of the landscape. The image below is the current ESRI Wayback basemap for an in the north of the Democratic Republic of the Congo (DRC). Bare soil, clearings, and tracks sit in and along the forest, so the landscape is visibly disturbed. The basemap does not say when each opening was made.
+
+![Current ESRI Wayback basemap of a disturbed landscape in northern DRC](figures/esri_current_basemap.png)
+
+_Current ESRI Wayback imagery for an area in northern DRC. Brown and tan patches are cleared or bare ground among forest. Clouds cover parts of the scene._
+
+The Vegetation Disturbance Occurrence magnitude band (ChgMag) is a continuous measure of how large the spectral drop was. Threshold it to keep disturbances greater than a level you choose for the landscape and the spectral index. Pixels that pass that threshold still carry the disturbance year (ChgYr), so the same map shows both where a disturbance was large enough to keep and which year it occurred.
+
+The map below is that step for a Vegetation Disturbance Occurrence run covering 2023 to 2025. Magnitude was already thresholded, and a minimum mapping unit of 7 pixels was applied, so patches smaller than that size are not drawn. Each color is one disturbance year in that window (Yellow = 2023, Light blue = 2024, Pink = 2025). Many of the kept patches follow the larger clearings on the basemap. Some of the other disturbances seen may have occurred outside of the 2023 to 2025 period.
+
+![Thresholded Vegetation Disturbance Occurrence disturbances from 2023 to 2025 in northern DRC](figures/VDO_Example_2023_to_2025_outside_garamba.png)
+
+_Vegetation Disturbance Occurrence disturbances from 2023 to 2025 in an area of northern DRC, drawn on the same basemap. Magnitude was thresholded and patches smaller than 7 pixels were removed. Color shows the year of disturbance (Yellow = 2023, Light blue = 2024, Pink = 2025)._
 
 ## 6. Validation and Quality Control
 
@@ -100,7 +117,7 @@ Use local knowledge and independent observations to validate outputs.
 
 Recommended checks:
 
-- Visual comparison with high-resolution imagery.
+- Visual comparison with high-resolution imagery. The [northern DRC example](#52-worked-example-disturbances-in-northern-democratic-republic-of-the-congo-drc-2023-to-2025) pairs a current ESRI Wayback basemap with thresholded Vegetation Disturbance Occurrence patches.
 - Cross-comparison with fire detections where relevant.
 - Spatial consistency checks (for example isolated single-pixel artifacts).
 - Temporal plausibility checks (does change year align with known events).
@@ -115,27 +132,26 @@ If results are noisy, revisit compositing and masking first, then threshold tuni
 - Interpreting disturbance from one metric alone without checking year and duration.
 - Skipping local validation before operational use.
 
-## 8. Simple Decision Workflow
+## 8. Simple Workflow
 
 1. Define your disturbance question and monitoring period.
 2. Build consistent yearly composites and select index (start with NBR).
-3. Run with default segmentation threshold.
-4. Review ChgYr, ChgMag, ChgDur together.
-5. Calibrate disturbance classification thresholds using known sites.
-6. Validate with independent data and refine.
-7. Scale to full area after settings are stable.
+3. Confirm BAP input quality  (consistent seasonal window and low residual cloud contamination).
+4. Run with default segmentation threshold.
+5. Review ChgYr, ChgMag together.
+6. Calibrate disturbance classification thresholds using known sites.
+7. Validate with independent data and refine.
+8. Scale to full area after settings are stable.
 
 ## 9. User Guidelines
 
-Validation of the solution suggests the most robust use pattern is a calibrated, iterative workflow.
+Based on validation outcomes, use the following quality gates before treating outputs as operational:
 
-Recommended sequence:
-
-1. Confirm BAP input quality first (consistent seasonal window and low residual cloud contamination).
-2. Run a pilot area with known disturbances before running large extents.
-3. Test at least two threshold settings and compare omission/false positives.
-4. Build disturbance classes using more than one metric (for example ChgMag with ChgYr), not one field alone.
-5. Record final settings and keep them fixed for repeat monitoring in the same landscape.
+1. Input quality gate: verify at least three yearly observations and consistent seasonal windows across years.
+2. Sensitivity gate: compare at least two disturbance threshold settings and document how mapped area and patch counts change.
+3. Plausibility gate: check sampled locations to confirm that `ChgYr` aligns with known event windows and mapped patches align with imagery.
+4. Interpretation gate: report disturbance classes together with the underlying metrics used (for example `ChgMag` and `ChgYr`) and key assumptions.
+5. Reproducibility gate: archive final parameters, AOI version, imagery date ranges, and tool version for repeat runs.
 
 ## 10. Limitations
 
@@ -143,4 +159,5 @@ Recommended sequence:
 - Short time series reduce reliability and can miss pre-disturbance context.
 - The approach can oversimplify pixels with repeated or multi-phase disturbances.
 - Classification thresholds are not universally transferable and should be recalibrated by ecosystem and index choice.
+
 
