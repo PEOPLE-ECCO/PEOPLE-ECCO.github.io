@@ -183,10 +183,11 @@ Recommended operational pattern:
 
 ## 12. Limitations
 
-- BAP can reduce cloud effects but may not fully remove atmospheric and cloud-edge artifacts in persistently cloudy areas.
-- Output behavior is sensitive to seasonal window selection and score weighting choices.
-- Composite quality can vary across time windows when valid observations are sparse.
-- BAP improves data quality for downstream analysis but does not by itself confirm ecological change.
+- The BAP process relies on a cloud mask. The Sentinel-2 scene classification layer (SCL) is used and is less effective than other cloud masks in tropical regions.
+- BAPs may contain cloud and cloud-edge artifacts in persistenly cloudy regions.
+- Output behavior is sensitive to selected date range and score weighting choices.
+- Composite quality can vary across a monitoring period (e.g. several years or months).
+- BAP provides data for further analysis but does not by itself confirm ecological change.
 
 ## 13. Full parameter summary
 
