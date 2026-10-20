@@ -26,9 +26,9 @@ The development of the aquatic solutions was led by [DHI](https://www.dhigroup.c
 
 The PEOPLE-ECCO aquatic solutions are:
 
-- [Submerged Aquatic Vegetation and coral reef extent](../marine-solutions/SAV/getting-started): Use a machine learning model to map seagrass and coral reef extent
-- [Habitat connectivity](../marine-solutions/habitat-connectivity/getting-started)
-- [Habitat frequency](../marine-solutions/habitat-frequency/getting-started)
+- [Submerged Aquatic Vegetation and coral reef extent](../aquatic-solutions/SAV/getting-started): Use a machine learning model to map seagrass and coral reef extent
+- [Habitat connectivity](../aquatic-solutions/habitat-connectivity/getting-started)
+- [Habitat frequency](../aquatic-solutions/habitat-frequency/getting-started)
 
 ##  Effectiveness solution
 The development of the effectiveness solution was led by [ITC](https://www.utwente.nl/en/itc/). Source code of the effectiveness solution can be found in **[this](https://github.com/PEOPLE-ECCO/ecco-effectiveness-solutions)** GitHub repository. Please use the repository's **[issues](https://github.com/PEOPLE-ECCO/ecco-effectiveness-solutions/issues)** tab to report bugs or suggest improvements. 

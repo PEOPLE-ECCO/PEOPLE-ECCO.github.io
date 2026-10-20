@@ -25,19 +25,19 @@ nav:
       - Theoretical Background: 'handbook/terrestrial-solutions/best-available-pixel/theoretical-background.md'
       - Key Considerations: 'handbook/terrestrial-solutions/best-available-pixel/key-considerations.md'
       - Getting-Started: 'handbook/terrestrial-solutions/best-available-pixel/getting-started.md'
-  - Marine Solutions:
+  - Aquatic Solutions:
     - Submerged Aquatic Vegetation (SAV):
-      - Theoretical Background: 'handbook/marine-solutions/SAV/theoretical-background.md'
-      - Key Considerations: 'handbook/marine-solutions/SAV/key-considerations.md'
-      - Getting-Started: 'handbook/marine-solutions/SAV/getting-started.md'
-    - Marine Habitat Frequency:
-      - Theoretical Background: 'handbook/marine-solutions/habitat-frequency/theoretical-background.md'
-      - Key Considerations: 'handbook/marine-solutions/habitat-frequency/key-considerations.md'
-      - Getting-Started: 'handbook/marine-solutions/habitat-frequency/getting-started.md'
-    - Marine Habitat Connectivity:
-      - Theoretical Background: 'handbook/marine-solutions/habitat-connectivity/theoretical-background.md'
-      - Key Considerations: 'handbook/marine-solutions/habitat-connectivity/key-considerations.md'
-      - Getting-Started: 'handbook/marine-solutions/habitat-connectivity/getting-started.md'
+      - Theoretical Background: 'handbook/aquatic-solutions/SAV/theoretical-background.md'
+      - Key Considerations: 'handbook/aquatic-solutions/SAV/key-considerations.md'
+      - Getting-Started: 'handbook/aquatic-solutions/SAV/getting-started.md'
+    - Aquatic Habitat Frequency:
+      - Theoretical Background: 'handbook/aquatic-solutions/habitat-frequency/theoretical-background.md'
+      - Key Considerations: 'handbook/aquatic-solutions/habitat-frequency/key-considerations.md'
+      - Getting-Started: 'handbook/aquatic-solutions/habitat-frequency/getting-started.md'
+    - Aquatic Habitat Connectivity:
+      - Theoretical Background: 'handbook/aquatic-solutions/habitat-connectivity/theoretical-background.md'
+      - Key Considerations: 'handbook/aquatic-solutions/habitat-connectivity/key-considerations.md'
+      - Getting-Started: 'handbook/aquatic-solutions/habitat-connectivity/getting-started.md'
   - Effectiveness Solution:
     - Before-After-Control-Impact assessment:
       - Theoretical Background: 'handbook/effectiveness-solutions/BACI/theoretical-background.md'

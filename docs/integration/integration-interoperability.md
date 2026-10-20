@@ -2,7 +2,7 @@
 
 Every PEOPLE-ECCO Solution is packaged as an Earth Observation Application Package (EOAP): a CWL (Common Workflow Language) workflow that runs the algorithm inside a Docker container. Because the packaging is standardized, any Solution can be executed locally with a CWL runner – outside of the PEOPLE-ECCO Platform – as long as the requirements below are met.
 
-This page walks through running a Solution locally, using **SAV** (Submerged Aquatic Vegetation, from `ecco-marine-solutions`) as a worked example.
+This page walks through running a Solution locally, using **SAV** (Submerged Aquatic Vegetation, from `ecco-aquatic-solutions`) as a worked example.
 
 ## Requirements
 
@@ -28,7 +28,7 @@ mkdir dhi-sav-v1.0.0 && tar -xzf dhi-sav-v1.0.0.tar.gz -C dhi-sav-v1.0.0
 cd dhi-sav-v1.0.0
 ```
 
-The package contains the CWL workflow (`run.cwl`), example parameter files (`sav_run_parameters_malaysia.json`, `sav_run_parameters_PEI.json`), and an `example.env` template. Other Solution releases can be found under their repository's `/releases` page, e.g. [ecco-marine-solutions/releases](https://github.com/PEOPLE-ECCO/ecco-marine-solutions/releases).
+The package contains the CWL workflow (`run.cwl`), example parameter files (`sav_run_parameters_malaysia.json`, `sav_run_parameters_PEI.json`), and an `example.env` template. Other Solution releases can be found under their repository's `/releases` page, e.g. [ecco-aquatic-solutions/releases](https://github.com/PEOPLE-ECCO/ecco-marine-solutions/releases).
 
 2. **Set your CDSE credentials as environment variables**
 
