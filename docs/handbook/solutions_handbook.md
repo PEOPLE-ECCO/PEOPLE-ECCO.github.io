@@ -22,7 +22,7 @@ The PEOPLE-ECCO terrestrial solutions are:
 - [Habitat Disturbance Rating](../terrestrial-solutions/habitat-disturbance/getting-started/): Integrate multiple datasets into a single score to quantify habitat disturbance
 
 ##  Aquatic solutions
-The development of the aquatic solutions was led by [DHI](https://www.dhigroup.com/). Source code of the aquatic solutions can be found in **[this](https://github.com/PEOPLE-ECCO/ecco-marine-solutions)** GitHub repository. Please use the repository's **[issues](https://github.com/PEOPLE-ECCO/ecco-marine-solutions/issues)** tab to report bugs or suggest improvements. 
+The development of the aquatic solutions was led by [DHI](https://www.dhigroup.com/). Source code of the aquatic solutions can be found in **[this](https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions)** GitHub repository. Please use the repository's **[issues](https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions/issues)** tab to report bugs or suggest improvements. 
 
 The PEOPLE-ECCO aquatic solutions are:
 

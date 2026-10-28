@@ -23,12 +23,12 @@ This page walks through running a Solution locally, using **SAV** (Submerged Aqu
 Each Solution is published as a `.tar.gz` release asset on GitHub. For SAV:
 
 ```bash
-curl -LO https://github.com/PEOPLE-ECCO/ecco-marine-solutions/releases/download/v1.0.0/dhi-sav-v1.0.0.tar.gz
+curl -LO https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions/releases/download/v1.0.0/dhi-sav-v1.0.0.tar.gz
 mkdir dhi-sav-v1.0.0 && tar -xzf dhi-sav-v1.0.0.tar.gz -C dhi-sav-v1.0.0
 cd dhi-sav-v1.0.0
 ```
 
-The package contains the CWL workflow (`run.cwl`), example parameter files (`sav_run_parameters_malaysia.json`, `sav_run_parameters_PEI.json`), and an `example.env` template. Other Solution releases can be found under their repository's `/releases` page, e.g. [ecco-aquatic-solutions/releases](https://github.com/PEOPLE-ECCO/ecco-marine-solutions/releases).
+The package contains the CWL workflow (`run.cwl`), example parameter files (`sav_run_parameters_malaysia.json`, `sav_run_parameters_PEI.json`), and an `example.env` template. Other Solution releases can be found under their repository's `/releases` page, e.g. [ecco-aquatic-solutions/releases](https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions/releases).
 
 2. **Set your CDSE credentials as environment variables**
 
