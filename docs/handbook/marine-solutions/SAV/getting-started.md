@@ -1,73 +1,108 @@
-# Getting Started with Habitat Extent 
+# Getting Started: Submerged Aquatic Vegetation (SAV)
 
-This page provides a practical quick start for running the Habitat Extent product. This workflow also automatically creates the habitat connectivity product, based on the results of the extent product.
+The PEOPLE-ECCO aquatic SAV and Connectivity workflow uses openEO to fetch and subset Sentinel-2 imagery from CDSE, then applies a machine-learning prediction model to post-process and classify submerged aquatic vegetation. The code is available on its ![github repository](https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions/tree/main).
 
-## What the Habitat Extent product does 
+## Requirements
 
-The Habitat Extent product generates maps of aquatic habitat types, submerged aquatic vegetation (SAV) and coral reefs, for a defined area and time period. A general description of the workflow is given below, with more detailed explanations on each step listed in the following sections: 
+- Docker
+- A CWL runner (for example `cwl-runner` via `cwlref-runner`)
+- CDSE credentials (OIDC client ID and secret)
+- The `ecco-aquatic-solutions` repository
 
-- All available Sentinel-2 Level-2A surface reflectance imagery below a user-defined scene cloud cover percentage are downloaded from [Openeo](!https://openeo.org/), based on the time period chosen. 
+Example install of a CWL runner in a virtual environment:
 
-- Cloud and pixel quality filters are applied using several bands and meta-data of each image.  
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install cwlref-runner
+```
 
-- Several transformations are applied to each image, creating the necessary features used by a Random Forest classifier.
+## Step-by-step: running SAV locally
 
-- The model is used to predict habitat classes on each downloaded image, and return the different class probabilities on a pixel basis for each image of the time-series. 
+### 1. Clone and enter the repository
 
-- The main result over the time period is created by computing the average probability for each class over all the predicted images. This step is necessary to create a stable and reliable result, to lower the impact of metereological conditions.
+```bash
+git clone https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions.git
+cd ecco-aquatic-solutions
+```
 
+### 2. Build the Docker image
 
-The main outputs are: 
+```bash
+docker build -f tooling/sav/sav.Dockerfile \
+  -t ghcr.io/people-ecco/dhi-sav:latest .
+```
 
-- Habitat type maps (e.g. SAV, coral reef).
+### 3. Set CDSE credentials
 
-- Probability maps for different habitat types.
+```bash
+export OPENEO_AUTH_CLIENT_ID="<your CDSE client id>"
+export OPENEO_AUTH_CLIENT_SECRET="<your CDSE client secret>"
+```
 
-- Binary maps indicating the presence of SAV or coral.
+You can also put these in a `.env` file (see `example.env`) and load them with `export $(cat .env | xargs)`.
 
-- Vector files delimiting the area for all detected habitat patches.
+### 4. Choose a SAV parameter file
 
-## Creation of a new habitat extent run
+A template is provided at `tooling/sav/sav_run_parameters_malaysia.json`. Copy it and edit it for your area of interest:
 
-### Step 1 Area selection
+```json
+{
+  "rangestart": "2023-01-01",
+  "rangeend": "2023-01-23",
+  "spatial_extent": {
+    "west": 118.54074,
+    "south": 4.31173,
+    "east": 118.58351,
+    "north": 4.34025,
+    "crs": "EPSG:4326"
+  },
+  "maxcloudcover": 40,
+  "swir_threshold": 350,
+  "sav_prob_threshold": 5000,
+  "area_name": "Malaysia"
+}
+```
 
-After logging into the portal select the __region of interest__ in which you want to use the model, within the available __sites__. 
+| Parameter | Description |
+|---|---|
+| `rangestart`, `rangeend` | Time window for imagery (YYYY-MM-DD) |
+| `spatial_extent` | Bounding box of the area of interest and its CRS |
+| `maxcloudcover` | Maximum scene cloud cover (%) |
+| `swir_threshold` | SWIR reflectance threshold used to separate land from water and remove sun glint |
+| `sav_prob_threshold` | Model probability cut-off for classifying a pixel as SAV (scaled 0–10000, so 5000 = 50%) |
+| `area_name` | Label for the area, used to select the model. Two possibilities exist for this value, either `Malaysia` to use the model trained on tropical waters in Malaysia, or `PEI` to use the model trained in Canada for sub-polar regions. |
 
-![Step 1](../../../asset/sav_start_page.png)
+### 5. Run SAV with CWL
 
+```bash
+cwl-runner cwl/sav.cwl \
+  --cdse_client_id="${OPENEO_AUTH_CLIENT_ID}" \
+  --cdse_client_secret="${OPENEO_AUTH_CLIENT_SECRET}" \
+  --parameters tooling/sav/sav_run_parameters_malaysia.json \
+  --run_name sav_run
+```
 
-### Step 2 Create a new time-series
+### 6. Inspect outputs
 
-Click on the `+` symbol at the bottom of the existing time-series, indicated by a red arrow in the figure below. You might need to scroll down the __Timeseries View __ menu to see this button.
+Results are written to the CWL output directory (by default the current directory; set `OUTPUT_PATH`, e.g. `./target/cwl_output`, to change it), in a folder named after `--run_name`.
 
-![Step 2](../../../asset/sav_habitat_new_ts.png)
+## Running without CWL
 
-### Step 3 Select A time range
+With the credentials set, you can run the Python entry point directly:
 
-From there on, follow the steps indicated by the pop-up window for creating a timeseries. After selecting the __algorithm__, you will need to select a __start and an end date__ to run the habitat extent product.
+```bash
+python tooling/sav/run_sav.py \
+  --parameters tooling/sav/sav_run_parameters_malaysia.json \
+  --output-dir ./target/output \
+  --run-name sav_run_01
+```
 
-![Step 3](../../../asset/sav_habitat_timewindow.png)
+## Related pages
 
+- [ecco-aquatic-solutions README](https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions/blob/main/README.md)
 
-### Step 4 Select an Area Of Interest (AOI)
-
-You can __create the polygon delimiting your area of interest__ by clicking on the map. To finish the polygon, you simply need to left click on the first point of your polygon.
-
-![Step 4](../../../asset/sav_habitat_aoi_selection.png)
-
-
-### Step 5 Start the run!
-
-Check the __parameters__ of your run, and click on the `Create` button to start the computations. Depending on the scale of the area and the length of the timeseries, the process might take from 5 minutes to several hours.
-
-![Step 5](../../../asset/sav_habitat_create.png)
-
-
-
-
-
-
-## Suggested first run 
+## Suggested first run
 
 - Start with a single AOI, the relevant model and limited time period.
 
@@ -75,10 +110,6 @@ Check the __parameters__ of your run, and click on the `Create` button to start 
 
 - If there is a single clear image, you can select a very short time window including only this scene. This type of scene generally yields good prediction results, and is fast to run.
 
-- Inspect outputs for:  
-
-    - Misclassification in turbid or deep water, both for the entire time series, and on per-scene basis.
-
-    - Edge artefacts along coastlines and clouds.
+- Inspect outputs for misclassification in turbid or deep water, both for the entire time series, and on per-scene basis.
 
 - Adjust the model parameters if needed.
