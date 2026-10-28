@@ -115,11 +115,30 @@ The Habitat extent product automatically downloads all eligible Sentinel-2 image
 The aggregated results are the product's main results, as they are more robust to the noise introduced by meterological conditions on single scenes. They are saved in a subfolder called `aggr_results` in `predictions`.
 Additionally, all classification outputs on single images are also saved, and can be used to explore scene-based results and understand potential issues. These files are saved as a series of geo-tiff files directly in the `predictions` folder.
 
+The structure of the created folder is as follows:
+
+<pre>
+&lt;openeo_tifs&gt;/    <span style="color:#2f81f7">← Downloaded openEO imagery</span>
+├── openEO&lt;...&gt;.tif
+└── ...
+&lt;predictions&gt;/    <span style="color:#2f81f7">← Model prediction outputs on single scenes</span>
+├── &lt;...&gt;probrgb_openeo.tif
+├── ...
+└── aggr_results/       <span style="color:#2f81f7">← Aggregated prediction outputs</span>
+    ├── &lt;...&gt;aggregated_classification.tif        <span style="color:#2f81f7">← Classification</span>
+    ├── &lt;...&gt;aggregated_probrgb.tif               <span style="color:#2f81f7">← Habitat probability</span>
+    ├── &lt;...&gt;aggregated_SAV_probability.tif       <span style="color:#2f81f7">← SAV probability</span>
+    ├── &lt;...&gt;aggregated_coral_probability.tif     <span style="color:#2f81f7">← Coral probability</span>
+    ├── &lt;...&gt;aggregated_sav.tif                   <span style="color:#2f81f7">← Binary SAV map</span>
+    └── &lt;...&gt;aggregated_coral.tif                 <span style="color:#2f81f7">← Binary coral map</span>
+&lt;...&gt;s2_mean_composite.tif   <span style="color:#2f81f7">← Mean composite image</span>
+</pre>
+
 ### Aggregated results
 
 #### Composite image
 
-The mean composite Sentinel-2 image is saved as a geo-tiff file, and contains in this order the Blue, Green, Red and NIR bands. The composite image is calculated on the remaining pixels after filtering, with all land areas are already filtered out. It is recommended to compare the results obtained for habitat presence and extent to this composite optical image, as it can highlight potential issues or errors. These images can sometimes contain dark patches over water, which come from unfiltered cloud shadows. This file is saved as 
+The mean composite Sentinel-2 image is saved as a geo-tiff file, and contains in this order the Blue, Green, Red and NIR bands. The composite image is calculated on the remaining pixels after filtering, with all land areas are already filtered out. It is recommended to compare the results obtained for habitat presence and extent to this composite optical image, as it can highlight potential issues or errors. These images can sometimes contain dark patches over water, which come from unfiltered cloud shadows.
 
 <p align="center">
 <img src="./figures/sav_mean_composite.png" width="60%">
