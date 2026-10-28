@@ -86,8 +86,6 @@ Two models have been trained, one in tropical waters in Malaysia, and the other 
 | Sentinel 2 optical mosaic| ![Semporna RGB](./figures/semporna_rgb.png) | ![PEI RGB](./figures/pei_rgb.png) |
 | Prediction probability outputs| ![Semporna probabilities](./figures/semporna_aggr_prob.png) | ![PEI probabilities](./figures/pei_aggr_prob.png) |
 
-
-
 ## Model and prediction
 
 ### Model and features

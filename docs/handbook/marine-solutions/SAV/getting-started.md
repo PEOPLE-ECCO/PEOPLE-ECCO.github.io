@@ -25,24 +25,7 @@ pip install cwlref-runner
 git clone https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions.git
 cd ecco-aquatic-solutions
 ```
-
-### 2. Build the Docker image
-
-```bash
-docker build -f tooling/sav/sav.Dockerfile \
-  -t ghcr.io/people-ecco/dhi-sav:latest .
-```
-
-### 3. Set CDSE credentials
-
-```bash
-export OPENEO_AUTH_CLIENT_ID="<your CDSE client id>"
-export OPENEO_AUTH_CLIENT_SECRET="<your CDSE client secret>"
-```
-
-You can also put these in a `.env` file (see `example.env`) and load them with `export $(cat .env | xargs)`.
-
-### 4. Choose a SAV parameter file
+### 2. Choose a SAV parameter file
 
 A template is provided at `tooling/sav/sav_run_parameters_malaysia.json`. Copy it and edit it for your area of interest:
 
@@ -73,7 +56,25 @@ A template is provided at `tooling/sav/sav_run_parameters_malaysia.json`. Copy i
 | `sav_prob_threshold` | Model probability cut-off for classifying a pixel as SAV (scaled 0–10000, so 5000 = 50%) |
 | `area_name` | Label for the area, used to select the model. Two possibilities exist for this value, either `Malaysia` to use the model trained on tropical waters in Malaysia, or `PEI` to use the model trained in Canada for sub-polar regions. |
 
-### 5. Run SAV with CWL
+### 3. Run with CWL
+
+```bash
+# Build Docker Image
+docker build -f tooling/sav/sav.Dockerfile \
+    -t ghcr.io/people-ecco/dhi-sav:latest .
+
+# set variables
+export OPENEO_AUTH_CLIENT_ID="..."
+export OPENEO_AUTH_CLIENT_SECRET="..."
+export OUTPUT_PATH="./target/cwl_output"
+
+# Run using cwl-runner
+export $(cat .env | xargs) && cwl-runner cwl/sav.cwl --cdse_client_id=${OPENEO_AUTH_CLIENT_ID} --cdse_client_secret=${OPENEO_AUTH_CLIENT_SECRET} --parameters tooling/sav/sav_run_parameters_malaysia.json --run_name sav_run
+```
+
+You can also put these in a `.env` file (see `example.env`) and load them with `export $(cat .env | xargs)`.
+
+### 4. Run SAV with CWL
 
 ```bash
 cwl-runner cwl/sav.cwl \
@@ -83,19 +84,20 @@ cwl-runner cwl/sav.cwl \
   --run_name sav_run
 ```
 
-### 6. Inspect outputs
+### 5. Inspect outputs
 
 Results are written to the CWL output directory (by default the current directory; set `OUTPUT_PATH`, e.g. `./target/cwl_output`, to change it), in a folder named after `--run_name`.
 
 ## Running without CWL
 
-With the credentials set, you can run the Python entry point directly:
-
 ```bash
+export OPENEO_AUTH_CLIENT_ID="..."
+export OPENEO_AUTH_CLIENT_SECRET="..."
+
 python tooling/sav/run_sav.py \
-  --parameters tooling/sav/sav_run_parameters_malaysia.json \
-  --output-dir ./target/output \
-  --run-name sav_run_01
+    --parameters tooling/sav/sav_run_parameters_malaysia.json \
+    --output-dir ./target/output \
+    --run-name sav_run_01
 ```
 
 ## Related pages
