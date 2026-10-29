@@ -1,6 +1,6 @@
 # Getting Started: Submerged Aquatic Vegetation (SAV)
 
-The PEOPLE-ECCO aquatic SAV and Connectivity workflow uses openEO to fetch and subset Sentinel-2 imagery from CDSE, then applies a machine-learning prediction model to post-process and classify submerged aquatic vegetation. The code is available on its ![github repository](https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions/tree/main).
+The PEOPLE-ECCO aquatic SAV and Connectivity workflow uses openEO to fetch and subset Sentinel-2 imagery from CDSE, then applies a machine-learning prediction model to post-process and classify submerged aquatic vegetation. The code is available on its [github repository](https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions/tree/main).
 
 ## Requirements
 
