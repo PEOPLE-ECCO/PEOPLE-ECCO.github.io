@@ -56,3 +56,4 @@ The adopted workflow uses Sentinel-2 imagery, cloud-free selection and compositi
 - Maritorena, S., Morel, A., and Gentili, B. (1994). Diffuse reflectance of oceanic shallow waters: Influence of water depth and bottom albedo. *Limnology and Oceanography*, 39(7), 1689-1703.
 - Poursanidis, D., Traganos, D., Reinartz, P., and Chrysoulakis, N. (2019). On the use of Sentinel-2 for coastal habitat mapping and satellite-derived bathymetry estimation using downscaled coastal aerosol band. *International Journal of Applied Earth Observation and Geoinformation*, 80, 58-70.
 - Stumpf, R. P., Holderied, K., and Sinclair, M. (2003). Determination of water depth with high-resolution satellite imagery over variable bottom types. *Limnology and Oceanography*, 48(1part2), 547-556.
+- Peng, J., Li, J., Krause, J. R., Lyons, M. B., Murray, N. J., Schill, S. R., ... & Asner, G. P. (2026). Global high-resolution mapping of seagrass to support conservation. *Nature*, 1-7.

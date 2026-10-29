@@ -1,39 +1,89 @@
-# Getting Started with Habitat Connectivity
+# Getting Started: Habitat Metrics
 
-This page provides a practical quick start for running the Habitat Connectivity product and understanding how spatial habitat structure and connectivity are derived from classified habitat maps.
+Habitat metrics turn the classified SAV (and coral) rasters into vector habitat patches and describe how they are connected. For each patch it computes:
 
-## What the Habitat Connectivity product does
+- `patch_id`: unique patch identifier
+- `area_ha`: patch area in hectares
+- `neighbors`: IDs of other patches within the neighbour distance
+- `neigh_area_ha`: total area of those neighbouring patches
 
-The Habitat Connectivity product analyzes the spatial structure and arrangement of habitats to quantify how habitat patches are distributed and connected across the landscape.
+> **Note:** Habitat metrics already run as the last step of the main SAV workflow (`Algorithm.run` in `src/main.py`), after prediction. If you followed [Getting Started: SAV](getting-started.md), the habitat metric GeoJSON files have already been created. You only need this page to re-run the step on existing predictions, for example with different smoothing or neighbour settings.
 
-The product:
+## Requirements
 
-- Uses classified habitat maps from the Habitat Extent product
-- Identifies discrete habitat patches
-- Computes spatial metrics describing patch size and connectivity between habitat areas
+- Python 3 with the repository dependencies installed
+- The `ecco-aquatic-solutions` repository
+- Aggregated prediction rasters from an earlier SAV run
 
-Main outputs include patch size and distribution maps. These outputs help distinguish large continuous habitats, fragmented or isolated patches, and areas with high or low structural connectivity.
+No CDSE credentials are needed, because this step only reads local files.
 
-## Creation of a new connectivity run
+```bash
+git clone https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions.git
+cd ecco-aquatic-solutions
+python3 -m venv venv
+source venv/bin/activate
+pip install geopandas==1.1.1 rasterio==1.5.0 scikit-image==0.25.2 numpy==2.3.4 pandas==2.3.3 pystac
+```
 
-The connectivity product is automatically created for each Timeseries created in the habitat extent product. The process to start a new Timeseries is explained in the habitat extent's[getting started page](../SAV/getting-started.md).
+> **Note:** Install only the packages this step needs, as shown above. The full `requirements.txt` pins `gdal`, which pip can only build when the GDAL system libraries are already installed.
 
+## Input layout
 
-## Additional runtime parameters
+`habitat_metric` takes a prediction directory and looks in its `aggr_results/` subfolder for single-band GeoTIFFs where pixel value `1` marks habitat:
 
-### Patch definition parameters
+```
+<prediction_dir>/
+└── aggr_results/
+    ├── <...>aggregated_sav.tif
+    └── <...>aggregated_coral.tif
+```
 
-- `minimum_patch_size`: Minimum patch size included in the analysis, defined as the number of pixels per patch. The current default is 1,000 pixels. Smaller patches are excluded to reduce noise and insignificant fragments.
-- `connectivity_distance_threshold`: Maximum distance at which two patches are considered connected. The current default is 1,000 m. Connectivity is distance-based rather than based on 4- or 8-neighbour pixel adjacency. This parameter should be user-defined in future versions.
+The main workflow writes these rasters to `predictions/` inside its working directory.
 
-### Connectivity analysis parameters
+## Running habitat metrics on its own
 
-- `connectivity_metric`: Defines how connectivity between habitat patches is assessed. The current implementation focuses on patch-level relationships determined using the distance threshold.
+`src/habitat_metrics.py` has no command-line interface of its own, but you can call it from the repository root with a short Python one-liner:
 
-## What gets written
+```bash
+python -c "
+from pathlib import Path
+from pystac import Catalog
+from src.habitat_metrics import habitat_metric
 
-Each run produces vector layers showing the outline of detected habitat patches. When clicking on the patches in the portal, information about its size and its neighbors are displayed. All the neighboring patches get highlighted as well, as shown in the figure below.
+catalog = Catalog(id='habitat-metrics', description='Habitat metrics run')
+habitat_metric(Path('path/to/predictions'), catalog)
+"
+```
 
-![Habitat connectivity result](../../../asset/sav_habitat_coral_vector.png)
+Replace `path/to/predictions` with your prediction directory, which is the folder that contains `aggr_results/`.
 
+> **Check the console output.** The function prints `Calculating metrics for: ...` for each raster it finds. If nothing is printed, no matching rasters were found, so check the path. Errors are printed as `Error while calculating habitat_metrics: ...` rather than raised, so the command can finish without an error even when a file failed.
 
+### Optional parameters
+
+| Parameter | Default | Description |
+|---|---|---|
+| `buffer_distance` | `10` | Distance (metres) used to smooth patch outlines with a negative then positive buffer |
+| `neighbor_threshold` | `1000` | Distance (metres) within which other patches count as neighbours |
+
+For example, to count patches within 500 m as neighbours:
+
+```python
+habitat_metric(
+    Path("path/to/predictions"), catalog, buffer_distance=10, neighbor_threshold=500
+)
+```
+
+## Process
+
+1. **Read** each aggregated raster and build a binary mask of pixels equal to `1`.
+2. **Remove** objects smaller than 1000 pixels and apply a morphological opening.
+3. **Vectorise** the mask into polygons, then simplify and smooth them.
+4. **Reproject** to the local UTM zone and compute `area_ha`.
+5. **Buffer** each patch by `neighbor_threshold` to find neighbours and `neigh_area_ha`.
+
+If a raster has no habitat pixels, an empty result is produced.
+
+## Outputs
+
+For each input raster, a GeoJSON file is written next to it in `aggr_results/`, named after the raster with a `.geojson` suffix (for example, `..._aggregated_sav.tif.geojson`). Each file is also registered as a STAC item (type `geojson-sav` or `geojson-coral`) in the catalog you passed in.
