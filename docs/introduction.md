@@ -19,7 +19,7 @@ The PEOPLE-ECCO Platform is a user-centred application that allows users to exec
 
 - **Web UI** – a map-centered web portal (built on Open Pioneer Trails) for visualizing study sites, time series, processing jobs, and spatial results.
 - **Backend API** – Python-based, it provides an API that manages scenarios, processes, timeseries, job orchestration, coordinated via Prefect. It also realizes openEO integration (authentication, job management) for Solutions and algorithms.
-- **Solutions** – six thematic algorithms covering marine ecosystems (vegetation mapping, habitat connectivity), terrestrial monitoring (productivity trends, disturbance detection), and impact assessment (before-after-control methods).
+- **Solutions** – six thematic algorithms covering aquatic ecosystems (vegetation mapping, habitat connectivity), terrestrial monitoring (productivity trends, disturbance detection), and impact assessment (before-after-control methods).
 - **Algorithm Framework** – a standardized execution contract that allows the platform to create reproducible analysis results.
 
 The overall design focuses on modularity and extensibilit (i.e., algorithms) as well as open standards to ensure longevity of Solutions and algorithms.
