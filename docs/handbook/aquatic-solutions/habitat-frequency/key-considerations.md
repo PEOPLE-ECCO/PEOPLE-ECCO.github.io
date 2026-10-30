@@ -50,6 +50,6 @@ Tendency only uses the first and the last year, so it is best read together with
 ## Limitations
 
 - **Depends on the yearly classifications.** All errors of the Habitat extent product carry into the time series. Since mapped extent is a minimum, a pixel not detected in a given year is not proof that habitat was absent.
-- - **Confusion between Coral and SAV.** The habitat extent product can confuse COral and SAV, which might appear as different tendencies if the classification alternates between the two habitat types.
+- **Confusion between Coral and SAV.** The habitat extent product can confuse COral and SAV, which might appear as different tendencies if the classification alternates between the two habitat types.
 - **Masked areas count as absence.** The yearly binary maps do not separate masked pixels from pixels without habitat. A cloud-covered or turbid area in one year appears as missing habitat for that year.
 - **First and last year drive the tendency.** A single poor-quality first or last year can produce widespread false gains or losses. Check the yearly maps before interpreting the tendency.
