@@ -1,33 +1,55 @@
-# Habitat Frequency: Key Considerations
+# Habitat Time Series: Key Considerations
 
-## Time-series consistency
+The habitat time series product summarises several yearly habitat extent maps into per-pixel statistics. It is meant to highlight **stable habitat, losses and gains** over time, and to point to areas worth checking in more detail.
 
-All annual habitat maps should use the same classification workflow, projection, spatial resolution, and comparable data-quality filtering. Inconsistent inputs can create artificial variability.
+The tool is designed to compare **different years over the exact same area of interest**. Results are only comparable if every year is computed over **the same season**. Seagrass and algae grow and die back seasonally, and water clarity, cloud cover and sun glint also vary through the year. Comparing a summer result with a winter one will show changes that are only seasonal.
 
-## Presence and detectability
+## Key runtime parameters
 
-Low frequency may reflect true absence or poor optical detectability caused by turbidity, water depth, sun glint, surface conditions, or other observation limitations. Interpret frequency as a combination of habitat persistence and observation conditions.
+### Consistency of the yearly inputs
 
-## Temporal selection
+The most important choices are made when producing the yearly habitat extent results. For every year, keep the following identical:
 
-Results depend on series length and seasonal consistency. Short periods emphasize interannual variability, while longer periods provide more robust persistence estimates. Mixing seasons can introduce unrelated variability.
+- `Spatial extent`: the exact same area of interest.
+- `Time period`: the same season, only the year changes.
+- `Model`: the same bioregion model.
+- `Maximum cloud cover`, `SWIR threshold` and `SAV probability threshold`: the same values. A change in threshold changes the mapped extent, and would appear as habitat change.
 
-## Classification uncertainty
+### Time series parameters
 
-Individual classification errors accumulate across the time series. Spectral confusion, boundary effects, and noise can underestimate frequency or create artificial variability. Validate source classifications and consider masking low-confidence areas.
+If the yearly maps do not share the same grid, they are automatically reprojected on the grid of the first year using nearest-neighbour resampling. Running every year with the same spatial extent avoids this step.
 
-## Threshold selection
+## Interpreting the outputs
 
-High thresholds identify stable core habitats, while lower thresholds include seasonal, dynamic, or marginal areas. There is no universal threshold. Selection should reflect monitoring objectives and habitat characteristics.
+All examples provided here have been evaluated on an area of interest in the red sea, from 2020 to 2026.
 
-## Data gaps
+### Frequency
 
-Uneven temporal coverage can bias calculations and reduce comparability between locations. Identify missing or unreliable years and exclude unsatisfactory periods where appropriate.
+The percentage of years in which habitat was detected in each pixel. High values show a stable habitat core, while low values show habitat detected only occasionally, which can be real short-lived habitat or classification noise. In the example below, low to high frequencies range from white, to light red, to deep red.
 
-## Aggregation loses timing information
+![Habitat frequency](./figures/ts_frequency.png)
 
-A frequency raster summarizes persistence but does not preserve the timing or sequence of change, seasonal patterns, or short-term disturbance events. Complement it with change detection or time-series visualization where deeper interpretation is required.
+### Last year detected
 
-## GIS integration
+The last year in which habitat was detected in each pixel. Pixels whose last year is older than the most recent year have not been detected since, and are candidates for habitat loss. In the example below, the deeper the red, the most recent is the last detected coral habitat.
 
-Frequency layers can support identification of stable core areas, zones of variability, conservation priorities, restoration planning, management-zone summaries, and combination with pressure or protection datasets.
+![Last year detected](./figures/ts_lastyear.png)
+
+### Tendency
+
+The change between the first and the last year of the series:
+
+- `1`: habitat appeared (absent in the first year, present in the last), shown in green in the example below;
+- `-1`: habitat disappeared (present in the first year, absent in the last), shown in red in the example below;
+- `0`: habitat present in both years, and shown in yellow in the example below.
+
+![Tendency between first and last year](./figures/ts_tendency.png)
+
+Tendency only uses the first and the last year, so it is best read together with the frequency map. A loss in a pixel with high frequency is more likely to be real than a loss in a pixel detected only once.
+
+## Limitations
+
+- **Depends on the yearly classifications.** All errors of the Habitat extent product carry into the time series. Since mapped extent is a minimum, a pixel not detected in a given year is not proof that habitat was absent.
+- - **Confusion between Coral and SAV.** The habitat extent product can confuse COral and SAV, which might appear as different tendencies if the classification alternates between the two habitat types.
+- **Masked areas count as absence.** The yearly binary maps do not separate masked pixels from pixels without habitat. A cloud-covered or turbid area in one year appears as missing habitat for that year.
+- **First and last year drive the tendency.** A single poor-quality first or last year can produce widespread false gains or losses. Check the yearly maps before interpreting the tendency.
