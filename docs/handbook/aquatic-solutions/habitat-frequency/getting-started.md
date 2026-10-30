@@ -1,54 +1,81 @@
-# Getting Started with Habitat Frequency
+# Getting Started: Habitat Time Series
 
-## What the product does
+The habitat time series tool compares yearly habitat extent results over the same area. It computes per-pixel statistics showing how often habitat was detected, when it was last seen, and where it appeared or disappeared between the first and last year.
 
-The Habitat Frequency product quantifies temporal habitat persistence from a time series of habitat extent maps.
+> **Important:** The tool is meant to compare **different years over the exact same area**. To be comparable, every yearly result must also cover **the same season** (for example July to September each year), so that seasonal changes in vegetation, water clarity or image availability are not mistaken for real habitat change. If the yearly maps were not on the same grid, the aligned copies used for the calculation are saved in `<output-dir>/aligned/<habitat>/`.
 
-The workflow:
+## Requirements
 
-- Uses multi-year habitat classifications
-- Builds a consistent temporal stack
-- Calculates the proportion of observations in which each pixel is classified as habitat
+- Python 3 with `numpy`, `pandas`, `rasterio`, `rioxarray` and `xarray`
+- The [`ecco-aquatic-solutions`](https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions) repository
+- At least two yearly results from the [Habitat Extent](../getting-started.md) workflow
 
-Outputs can include 0 to 100% frequency maps, thresholded persistent-habitat layers, and indicators of stable versus variable habitat presence.
+```bash
+git clone https://github.com/PEOPLE-ECCO/ecco-aquatic-solutions.git
+cd ecco-aquatic-solutions
+python3 -m venv venv
+source venv/bin/activate
+pip install numpy pandas rasterio rioxarray xarray
+```
 
-## Input dataset and period
+No CDSE credentials are needed, because the tool only reads local results.
 
-### Input requirements
+## Step-by-step
 
-- A multi-year series of habitat maps, typically annual
-- Consistent extent, resolution, and classification workflow
-- Comparable seasonal timing across years
+### 1. Run the Habitat Extent workflow for each year
 
-A minimum of roughly four to five years is recommended in the source documentation.
+Run the main SAV workflow once per year, changing **only the years** in the time window. Keep the spatial extent, season, model and thresholds identical for every run. For example, for 2023 and 2024:
 
-## Key parameters
+```json
+{
+  "rangestart": "2023-07-01",
+  "rangeend": "2023-09-30",
+  "spatial_extent": {"west": 118.54074, "south": 4.31173, "east": 118.58351, "north": 4.34025, "crs": "EPSG:4326"},
+  "maxcloudcover": 40,
+  "swir_threshold": 350,
+  "sav_prob_threshold": 5000,
+  "area_name": "Malaysia"
+}
+```
 
-- `spatial_extent`: Area of interest
-- `habitat_timeseries`: Multi-year set of habitat classifications
-- `analysis_period`: Years included
-- `frequency_threshold`: Threshold defining persistent habitat, for example 70% for highly stable habitat or 50% for moderately stable habitat
-- `temporal_consistency_check`: Optional alignment check
-- `data_gaps_handling`: Treatment of missing years
+```json
+{
+  "rangestart": "2024-07-01",
+  "rangeend": "2024-09-30",
+  "spatial_extent": {"west": 118.54074, "south": 4.31173, "east": 118.58351, "north": 4.34025, "crs": "EPSG:4326"},
+  "maxcloudcover": 40,
+  "swir_threshold": 350,
+  "sav_prob_threshold": 5000,
+  "area_name": "Malaysia"
+}
+```
 
-## Outputs
+### 2. Organise the results
 
-- Continuous habitat-frequency raster from 0 to 100%
-- Optional binary persistence layer
-- Optional summary statistics for persistent and variable habitat area
+Keep one result folder per year. The tool searches each folder (including subfolders) for the binary habitat maps `<date>_aggregated_sav.tif` and `<date>_aggregated_coral.tif`, and reads the year from the start of the file name.
 
-## Suggested first run
+```
+results/
+├── 2023/predictions/aggr_results/2023-08-14_aggregated_sav.tif
+├── 2024/predictions/aggr_results/2024-08-09_aggregated_sav.tif
+└── 2025/predictions/aggr_results/2025-08-21_aggregated_sav.tif
+```
 
-- Start with validated habitat-extent maps and a small AOI
-- Use the full available period and a default threshold such as 70%
-- Inspect expected stable and variable areas
-- Compare with local knowledge or reference data
-- Adjust the period or threshold if needed
+Each folder must contain only one result per year.
 
-## Tutorial outline
+### 3. Run the time series
 
-1. Open the Habitat Frequency workflow.
-2. Select the multi-year habitat extent maps.
-3. Define the period and frequency threshold.
-4. Launch and monitor processing.
-5. Inspect and export frequency outputs.
+From the repository root:
+
+```bash
+python -m src.time_series \
+  --input-folders results/2023 results/2024 results/2025 \
+  --output-dir results/time_series
+```
+
+| Argument | Default | Description |
+|---|---|---|
+| `--input-folders` | required | Yearly result folders, at least two |
+| `--output-dir` | required | Folder where the time series results are written |
+| `--habitat-types` | `sav coral` | Habitat types to process |
+| `--extent` | `intersection` | Common extent used if the inputs are not on the same grid: `intersection` or `union` |
